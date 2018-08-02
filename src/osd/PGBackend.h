@@ -146,6 +146,8 @@ class CompletionItem;
        vector<ObjectStore::Transaction>& tls,
        OpRequestRef op = OpRequestRef()
        ) = 0;
+
+     virtual void add_reply_to_finisher(Context *onreply) = 0;
      virtual epoch_t get_epoch() const = 0;
      virtual epoch_t get_interval_start_epoch() const = 0;
      virtual epoch_t get_last_peering_reset_epoch() const = 0;
@@ -286,9 +288,10 @@ class CompletionItem;
 
      virtual bool check_osdmap_full(const set<pg_shard_t> &missing_on) = 0;
 
-     virtual void add_completion_q(CompletionItem *) {}
+     virtual void pg_lock() = 0;
+     virtual void pg_unlock() = 0;
+     virtual bool do_completion(bool need_lock) {return false;}
      virtual CompletionItem * new_sub_comp_item(OpRequestRef op) {return NULL;}
-     virtual Context *op_comp_context(Context *c, CompletionItem *comp_item) {return NULL;}
 
      virtual ~Listener() {}
    };

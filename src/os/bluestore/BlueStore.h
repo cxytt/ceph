@@ -2393,6 +2393,8 @@ public:
     TrackedOpRef op = TrackedOpRef(),
     ThreadPool::TPHandle *handle = NULL) override;
 
+  void add_reply_to_finisher(Sequencer *osr, Context *onreply);
+
   // error injection
   void inject_data_error(const ghobject_t& o) override {
     RWLock::WLocker l(debug_read_error_lock);

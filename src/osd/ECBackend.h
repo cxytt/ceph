@@ -56,45 +56,6 @@ public:
   bool can_handle_while_inactive(
     OpRequestRef op
     ) override;
-  friend struct SubWriteApplied;
-  friend struct SubWriteCommitted;
-  void sub_write_applied(
-    const ZTracer::Trace &trace,
-    bool is_primary,
-    ECSubWriteReply *reply,
-    MOSDECSubOpWriteReply *r,
-    CompletionItem *comp_item);
-  void sub_write_committed(
-    const ZTracer::Trace &trace,
-    bool is_primary,
-    ECSubWriteReply *reply,
-    MOSDECSubOpWriteReply *r,
-    CompletionItem *comp_item);
-  void handle_sub_write(
-    pg_shard_t from,
-    OpRequestRef msg,
-    ECSubWrite &op,
-    const ZTracer::Trace &trace,
-    Context *on_local_applied_sync = 0,
-    CompletionItem *comp_item = NULL
-    );
-  void handle_sub_read(
-    pg_shard_t from,
-    const ECSubRead &op,
-    ECSubReadReply *reply,
-    const ZTracer::Trace &trace
-    );
-  void handle_sub_write_reply(
-    pg_shard_t from,
-    const ECSubWriteReply &op,
-    const ZTracer::Trace &trace
-    );
-  void handle_sub_read_reply(
-    pg_shard_t from,
-    ECSubReadReply &op,
-    RecoveryMessages *m,
-    const ZTracer::Trace &trace
-    );
 
   /// @see ReadOp below
   void check_recovery_sources(const OSDMapRef& osdmap) override;
@@ -217,7 +178,6 @@ public:
   }
 
   void erase_inprogress_op(ceph_tid_t tid);
-  bool check_all_completion(CompletionItem *comp_item);
   bool handle_message_op_lock(OpRequestRef _op);
 
 private:
@@ -691,6 +651,60 @@ public:
   }
   void _failed_push(const hobject_t &hoid,
     pair<RecoveryMessages *, ECBackend::read_result_t &> &in);
+
+  friend struct SubWriteApplied;
+  friend struct SubWriteCommitted;
+  friend struct SubWriteReply;
+  void sub_write_applied(
+    const ZTracer::Trace &trace,
+    bool is_primary,
+    ECSubWriteReply *reply,
+    MOSDECSubOpWriteReply *r,
+    ECBackend::Op *ip_op,
+    CompletionItem *comp_item);
+  void sub_write_committed(
+    const ZTracer::Trace &trace,
+    bool is_primary,
+    ECSubWriteReply *reply,
+    MOSDECSubOpWriteReply *r,
+    ECBackend::Op *ip_op,
+    CompletionItem *comp_item);
+  void handle_sub_write(
+    pg_shard_t from,
+    OpRequestRef msg,
+    ECSubWrite &op,
+    const ZTracer::Trace &trace,
+    Context *on_local_applied_sync = 0,
+    CompletionItem *comp_item = NULL
+    );
+  void handle_sub_read(
+    pg_shard_t from,
+    const ECSubRead &op,
+    ECSubReadReply *reply,
+    const ZTracer::Trace &trace
+    );
+  void do_ec_subop_reply(
+    OpRequestRef _op
+    );
+  void handle_sub_write_reply(
+    pg_shard_t from,
+    const ECSubWriteReply &op,
+    ECBackend::Op *ip_op,
+    const ZTracer::Trace &trace
+    );
+  void handle_sub_nop_write_reply(
+    pg_shard_t from,
+    const ECSubWriteReply &op,
+    ECBackend::Op *ip_op,
+    const ZTracer::Trace &trace
+    );
+  void handle_sub_read_reply(
+    pg_shard_t from,
+    ECSubReadReply &op,
+    RecoveryMessages *m,
+    const ZTracer::Trace &trace
+    );
+
 };
 ostream &operator<<(ostream &lhs, const ECBackend::pipeline_state_t &rhs);
 

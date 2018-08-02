@@ -346,16 +346,16 @@ private:
       ceph_tid_t tid, Context *on_commit, Context *on_applied,
       OpRequestRef op, eversion_t v)
       : tid(tid), on_commit(on_commit), on_applied(on_applied),
-	op(op), v(v), comp_item(NULL) {}
+        op(op), v(v), comp_item(NULL) {}
     bool done() const {
-      return waiting_for_commit.empty() &&
-	waiting_for_applied.empty();
+      return waiting_for_commit.empty() && waiting_for_applied.empty();
     }
   };
   map<ceph_tid_t, InProgressOp> in_progress_ops;
 public:
   friend class C_OSD_OnOpCommit;
   friend class C_OSD_OnOpApplied;
+  friend class C_OSD_OnOpReply;
 
   void call_write_ordered(std::function<void(void)> &&cb) override {
     // ReplicatedBackend submits writes inline in submit_transaction, so
@@ -412,9 +412,10 @@ private:
     ObjectStore::Transaction &op_t);
   void op_applied(InProgressOp *op);
   void op_commit(InProgressOp *op);
+  void op_reply(InProgressOp *ip_op, 
+    pg_shard_t from, __u8 ack_type, eversion_t last_complete_ondisk);
   void check_committed_completion(InProgressOp * op);
   void check_applied_completion(InProgressOp * op);
-  bool check_all_completion(InProgressOp * op);
   void do_repop_reply(OpRequestRef op);
   void do_repop(OpRequestRef op);
 

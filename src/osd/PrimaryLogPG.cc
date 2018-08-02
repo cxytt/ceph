@@ -171,26 +171,6 @@ Context *PrimaryLogPG::bless_context(Context *c) {
   return new BlessedContext(this, c, get_osdmap()->get_epoch());
 }
 
-class OpCompContext : public Context {
-  PrimaryLogPGRef pg;
-  Context *c;
-  epoch_t e;
-  CompletionItem *comp_item;
-public:
-  OpCompContext(PrimaryLogPG *pg, Context *c, epoch_t e, CompletionItem *comp_item)
-    : pg(pg), c(c), e(e), comp_item(comp_item) {}
-  void finish(int r) {
-    assert(comp_item);
-    comp_item->lock();
-    c->complete(r);
-    comp_item->unlock();
-  }
-};
-
-Context *PrimaryLogPG::op_comp_context(Context *c, CompletionItem *comp_item) {
-  return new OpCompContext(this, c, get_osdmap()->get_epoch(), comp_item);
-}
-
 class PrimaryLogPG::C_PG_ObjectContext : public Context {
   PrimaryLogPGRef pg;
   ObjectContext *obc;
@@ -1726,7 +1706,7 @@ void PrimaryLogPG::do_request(
     return;
   }
 
-  do_completion(false);
+  //do_completion(false);
   assert(is_peered() && flushes_in_progress == 0);
   if (pgbackend->handle_message(op))
     return;
@@ -2273,7 +2253,7 @@ void PrimaryLogPG::do_op(OpRequestRef& op)
   } else if (!get_rw_locks(write_ordered, ctx)) {
     dout(20) << __func__ << " waiting for rw locks " << dendl;
     op->mark_delayed("waiting for rw locks");
-    do_completion(false);
+    //do_completion(false);
     close_op_ctx(ctx);
     return;
   }
@@ -3336,33 +3316,30 @@ void PrimaryLogPG::execute_ctx(OpContext *ctx)
   ctx->register_on_commit_op_lock(
     [m, ctx, this](){
       if (ctx->op)
-	log_op_stats(
-	  ctx);
+        log_op_stats(ctx);
 
       if (m && !ctx->sent_reply) {
-	MOSDOpReply *reply = ctx->reply;
-	if (reply)
-	  ctx->reply = nullptr;
-	else {
-	  lock();
-	  reply = new MOSDOpReply(m, 0, get_osdmap()->get_epoch(), 0, true);
-	  reply->set_reply_versions(ctx->at_version,
-				    ctx->user_at_version);
-	  unlock();
-	}
-	reply->add_flags(CEPH_OSD_FLAG_ACK | CEPH_OSD_FLAG_ONDISK);
-	dout(10) << " sending reply on " << *m << " " << reply << dendl;
-	osd->send_message_osd_client(reply, m->get_connection());
-	ctx->sent_reply = true;
-	ctx->op->mark_commit_sent();
+        MOSDOpReply *reply = ctx->reply;
+        if (reply)
+          ctx->reply = nullptr;
+        else {
+          lock();
+          reply = new MOSDOpReply(m, 0, get_osdmap()->get_epoch(), 0, true);
+          reply->set_reply_versions(ctx->at_version, ctx->user_at_version);
+          unlock();
+        }
+        reply->add_flags(CEPH_OSD_FLAG_ACK | CEPH_OSD_FLAG_ONDISK);
+        dout(10) << " sending reply on " << *m << " " << reply << dendl;
+        osd->send_message_osd_client(reply, m->get_connection());
+        ctx->sent_reply = true;
+        ctx->op->mark_commit_sent();
       }
     });
   ctx->register_on_success_op_lock(
     [ctx, this]() {
-      do_osd_op_effects(
-	ctx,
-	ctx->op ? ctx->op->get_req()->get_connection() :
-	ConnectionRef());
+      do_osd_op_effects(ctx,
+        ctx->op ? ctx->op->get_req()->get_connection() :
+        ConnectionRef());
     });
   ctx->register_on_finish_op_lock(
     [ctx, this]() {
@@ -3373,13 +3350,11 @@ void PrimaryLogPG::execute_ctx(OpContext *ctx)
   ceph_tid_t rep_tid = osd->get_tid();
 
   RepGather *repop;
-  _repop_queue_lock.Lock();
+  //_repop_queue_lock.Lock();
   repop = new_repop(ctx, obc, rep_tid, OP_COMP_PRIMARY_OP);
-
-
   issue_repop(repop, ctx);
-  _repop_queue_lock.Unlock();
-  do_completion(false);
+  //_repop_queue_lock.Unlock();
+  //do_completion(false);
   repop->put();
 }
 
@@ -9140,7 +9115,6 @@ void PrimaryLogPG::op_applied(const eversion_t &applied_version)
         } else {
           requeue_scrub(false);
         }
-
       }
     } else {
       assert(scrubber.start == scrubber.end);
@@ -9148,17 +9122,17 @@ void PrimaryLogPG::op_applied(const eversion_t &applied_version)
   } else {
     if (scrubber.active_rep_scrub) {
       if (last_update_applied >= static_cast<const MOSDRepScrub*>(
-	    scrubber.active_rep_scrub->get_req())->scrub_to) {
-	auto& op = scrubber.active_rep_scrub;
-	osd->enqueue_back(
+        scrubber.active_rep_scrub->get_req())->scrub_to) {
+        auto& op = scrubber.active_rep_scrub;
+        osd->enqueue_back(
           OpQueueItem(
-	    unique_ptr<OpQueueItem::OpQueueable>(new PGOpItem(info.pgid, op)),
-	    op->get_req()->get_cost(),
-	    op->get_req()->get_priority(),
-	    op->get_req()->get_recv_stamp(),
-	    op->get_req()->get_source().num(),
-	    get_osdmap()->get_epoch()));
-	scrubber.active_rep_scrub = OpRequestRef();
+          unique_ptr<OpQueueItem::OpQueueable>(new PGOpItem(info.pgid, op)),
+          op->get_req()->get_cost(),
+          op->get_req()->get_priority(),
+          op->get_req()->get_recv_stamp(),
+          op->get_req()->get_source().num(),
+          get_osdmap()->get_epoch()));
+        scrubber.active_rep_scrub = OpRequestRef();
       }
     }
   }
@@ -9193,12 +9167,11 @@ void PrimaryLogPG::eval_repop(RepGather *repop)
     // send dup commits, in order
     if (waiting_for_ondisk.count(repop->v)) {
       assert(waiting_for_ondisk.begin()->first == repop->v);
-      for (list<pair<OpRequestRef, version_t> >::iterator i =
-	     waiting_for_ondisk[repop->v].begin();
-	   i != waiting_for_ondisk[repop->v].end();
-	   ++i) {
-	osd->reply_op_error(i->first, repop->r, repop->v,
-			    i->second);
+      for (list<pair<OpRequestRef, version_t> >::iterator i = 
+           waiting_for_ondisk[repop->v].begin();
+           i != waiting_for_ondisk[repop->v].end(); 
+           ++i) {
+        osd->reply_op_error(i->first, repop->r, repop->v, i->second);
       }
       waiting_for_ondisk.erase(repop->v);
     }
@@ -9229,21 +9202,21 @@ void PrimaryLogPG::eval_repop(RepGather *repop)
     dout(20) << "   q front is " << *repop_queue.front() << dendl; 
     if (repop_queue.front() != repop) {
       if (!repop->applies_with_commit) {
-	dout(0) << " removing " << *repop << dendl;
-	dout(0) << "   q front is " << *repop_queue.front() << dendl;
-	assert(repop_queue.front() == repop);
+        dout(0) << " removing " << *repop << dendl;
+        dout(0) << "   q front is " << *repop_queue.front() << dendl;
+        assert(repop_queue.front() == repop);
       }
     } else {
       RepGather *to_remove = nullptr;
       while (!repop_queue.empty() &&
-	     (to_remove = repop_queue.front())->rep_done) {
-	repop_queue.pop_front();
-	for (auto p = to_remove->on_success.begin();
-	     p != to_remove->on_success.end();
-	     to_remove->on_success.erase(p++)) {
-	  (*p)();
-	}
-	remove_repop(to_remove);
+            (to_remove = repop_queue.front())->rep_done) {
+        repop_queue.pop_front();
+        for (auto p = to_remove->on_success.begin();
+             p != to_remove->on_success.end();
+             to_remove->on_success.erase(p++)) {
+          (*p)();
+	     }
+	     remove_repop(to_remove);
       }
     }
   }
@@ -9260,13 +9233,13 @@ void PrimaryLogPG::issue_repop(RepGather *repop, OpContext *ctx)
   repop->v = ctx->at_version;
   if (ctx->at_version > eversion_t()) {
     for (set<pg_shard_t>::iterator i = actingbackfill.begin();
-	 i != actingbackfill.end();
-	 ++i) {
+         i != actingbackfill.end();
+         ++i) {
       if (*i == get_primary()) continue;
       pg_info_t &pinfo = peer_info[*i];
       // keep peer_info up to date
       if (pinfo.last_complete == pinfo.last_update)
-	pinfo.last_complete = ctx->at_version;
+        pinfo.last_complete = ctx->at_version;
       pinfo.last_update = ctx->at_version;
     }
   }
@@ -9399,7 +9372,7 @@ PrimaryLogPG::RepSub *PrimaryLogPG::new_repop_sub(
  
 void PrimaryLogPG::remove_repop(RepGather *repop)
 {
-  dout(20) << __func__ << " " << *repop << dendl;
+  dout(10) << __func__ << " " << *repop << dendl;
 
   for (auto p = repop->on_finish.begin();
        p != repop->on_finish.end();
@@ -9413,8 +9386,7 @@ void PrimaryLogPG::remove_repop(RepGather *repop)
     (*p)();
   }
 
-  release_object_locks(
-    repop->lock_manager);
+  release_object_locks(repop->lock_manager);
   repop->put();
 
   osd->logger->dec(l_osd_op_wip);
@@ -9477,104 +9449,88 @@ void PrimaryLogPG::submit_log_entries(
       eversion_t old_last_update = info.last_update;
       merge_new_log_entries(entries, t);
 
-
       set<pg_shard_t> waiting_on;
       for (set<pg_shard_t>::const_iterator i = actingbackfill.begin();
-	   i != actingbackfill.end();
-	   ++i) {
-	pg_shard_t peer(*i);
-	if (peer == pg_whoami) continue;
-	assert(peer_missing.count(peer));
-	assert(peer_info.count(peer));
-	if (get_osdmap()->require_osd_release >= CEPH_RELEASE_JEWEL) {
-	  assert(repop);
-	  MOSDPGUpdateLogMissing *m = new MOSDPGUpdateLogMissing(
-	    entries,
-	    spg_t(info.pgid.pgid, i->shard),
-	    pg_whoami.shard,
-	    get_osdmap()->get_epoch(),
-	    last_peering_reset,
-	    repop->rep_tid);
-	  osd->send_message_osd_cluster(
-	    peer.osd, m, get_osdmap()->get_epoch());
-	  waiting_on.insert(peer);
-	} else {
-	  MOSDPGLog *m = new MOSDPGLog(
-	    peer.shard, pg_whoami.shard,
-	    info.last_update.epoch,
-	    info);
-	  m->log.log = entries;
-	  m->log.tail = old_last_update;
-	  m->log.head = info.last_update;
-	  osd->send_message_osd_cluster(
-	    peer.osd, m, get_osdmap()->get_epoch());
-	}
+           i != actingbackfill.end();
+	        ++i) {
+	     pg_shard_t peer(*i);
+        if (peer == pg_whoami) continue;
+        assert(peer_missing.count(peer));
+        assert(peer_info.count(peer));
+        if (get_osdmap()->require_osd_release >= CEPH_RELEASE_JEWEL) {
+          assert(repop);
+          MOSDPGUpdateLogMissing *m = new MOSDPGUpdateLogMissing(
+          entries,
+          spg_t(info.pgid.pgid, i->shard),
+          pg_whoami.shard,
+          get_osdmap()->get_epoch(),
+          last_peering_reset,
+          repop->rep_tid);
+          osd->send_message_osd_cluster(peer.osd, m, get_osdmap()->get_epoch());
+          waiting_on.insert(peer);
+        } else {
+          MOSDPGLog *m = new MOSDPGLog(
+            peer.shard, pg_whoami.shard,
+            info.last_update.epoch,
+            info);
+          m->log.log = entries;
+          m->log.tail = old_last_update;
+          m->log.head = info.last_update;
+          osd->send_message_osd_cluster(peer.osd, m, get_osdmap()->get_epoch());
+        }
       }
       if (get_osdmap()->require_osd_release >= CEPH_RELEASE_JEWEL) {
-	ceph_tid_t rep_tid = repop->rep_tid;
-	waiting_on.insert(pg_whoami);
-	log_entry_update_waiting_on.insert(
-	  make_pair(
-	    rep_tid,
-	    LogUpdateCtx{std::move(repop), std::move(waiting_on)}
-	    ));
-	struct OnComplete : public Context {
-	  PrimaryLogPGRef pg;
-	  ceph_tid_t rep_tid;
-	  epoch_t epoch;
-	  OnComplete(
-	    PrimaryLogPGRef pg,
-	    ceph_tid_t rep_tid,
-	    epoch_t epoch)
-	    : pg(pg), rep_tid(rep_tid), epoch(epoch) {}
-	  void finish(int) override {
-	    pg->lock();
-	    if (!pg->pg_has_reset_since(epoch)) {
-	      auto it = pg->log_entry_update_waiting_on.find(rep_tid);
-	      assert(it != pg->log_entry_update_waiting_on.end());
-	      auto it2 = it->second.waiting_on.find(pg->pg_whoami);
-	      assert(it2 != it->second.waiting_on.end());
-	      it->second.waiting_on.erase(it2);
-	      if (it->second.waiting_on.empty()) {
-		(*it->second.repop).lock();
-		pg->repop_all_committed(it->second.repop.get());
-		(*it->second.repop).unlock();
-		pg->log_entry_update_waiting_on.erase(it);
-	      }
-	    }
-	    pg->unlock();
-	  }
-	};
-	t.register_on_commit(
-	  new OnComplete{this, rep_tid, get_osdmap()->get_epoch()});
+        ceph_tid_t rep_tid = repop->rep_tid;
+        waiting_on.insert(pg_whoami);
+        log_entry_update_waiting_on.insert(
+            make_pair(rep_tid, LogUpdateCtx{std::move(repop), std::move(waiting_on)}));
+        struct OnComplete : public Context {
+          PrimaryLogPGRef pg;
+          ceph_tid_t rep_tid;
+          epoch_t epoch;
+          OnComplete(PrimaryLogPGRef pg, ceph_tid_t rep_tid, epoch_t epoch) :
+            pg(pg), rep_tid(rep_tid), epoch(epoch) {}
+          void finish(int) override {
+            pg->lock();
+            if (!pg->pg_has_reset_since(epoch)) {
+              auto it = pg->log_entry_update_waiting_on.find(rep_tid);
+              assert(it != pg->log_entry_update_waiting_on.end());
+              auto it2 = it->second.waiting_on.find(pg->pg_whoami);
+              assert(it2 != it->second.waiting_on.end());
+              it->second.waiting_on.erase(it2);
+              if (it->second.waiting_on.empty()) {
+                pg->repop_all_committed(it->second.repop.get());
+                pg->log_entry_update_waiting_on.erase(it);
+              }
+            }
+            pg->unlock();
+          }
+        };
+        t.register_on_commit(new OnComplete{this, rep_tid, get_osdmap()->get_epoch()});
       } else {
-	if (on_complete) {
-	  struct OnComplete : public Context {
-	    PrimaryLogPGRef pg;
-	    std::function<void(void)> on_complete;
-	    epoch_t epoch;
-	    OnComplete(
-	      PrimaryLogPGRef pg,
-	      const std::function<void(void)> &on_complete,
-	      epoch_t epoch)
-	      : pg(pg),
-		on_complete(std::move(on_complete)),
-		epoch(epoch) {}
-	    void finish(int) override {
-	      pg->lock();
-	      if (!pg->pg_has_reset_since(epoch))
-		on_complete();
-	      pg->unlock();
-	    }
-	  };
-	  t.register_on_complete(
-	    new OnComplete{
-	      this, *on_complete, get_osdmap()->get_epoch()
-		});
-	}
+        if (on_complete) {
+          struct OnComplete : public Context {
+            PrimaryLogPGRef pg;
+            std::function<void(void)> on_complete;
+            epoch_t epoch;
+            OnComplete(PrimaryLogPGRef pg,
+              const std::function<void(void)> &on_complete,
+              epoch_t epoch) : 
+              pg(pg), on_complete(std::move(on_complete)), epoch(epoch) {}
+	        void finish(int) override {
+	          pg->lock();
+	          if (!pg->pg_has_reset_since(epoch))
+               on_complete();
+	          pg->unlock();
+	        }
+	      };
+	      t.register_on_complete(new OnComplete {
+           this, *on_complete, get_osdmap()->get_epoch()
+         });
+        }
       }
       t.register_on_applied(
-	new C_OSD_OnApplied{this, get_osdmap()->get_epoch(), info.last_update});
+        new C_OSD_OnApplied{this, get_osdmap()->get_epoch(), info.last_update});
       int r = osd->store->queue_transaction(osr.get(), std::move(t), NULL);
       assert(r == 0);
     });
@@ -10736,7 +10692,6 @@ void PrimaryLogPG::apply_and_flush_repops(bool requeue)
   // apply all repops
   while (!repop_queue.empty()) {
     RepGather *repop = repop_queue.front();
-    repop->lock();
     repop_queue.pop_front();
     dout(10) << " canceling repop tid " << repop->rep_tid << dendl;
     repop->rep_aborted = true;
@@ -10744,29 +10699,29 @@ void PrimaryLogPG::apply_and_flush_repops(bool requeue)
     repop->on_committed.clear();
     repop->on_success.clear();
 
+    repop->on_applied_op_lock.clear();
+    repop->on_committed_op_lock.clear();
+    repop->on_success_op_lock.clear();
+
     if (requeue) {
       if (repop->op) {
-	dout(10) << " requeuing " << *repop->op->get_req() << dendl;
-	rq.push_back(repop->op);
-	repop->op = OpRequestRef();
+	     dout(10) << " requeuing " << *repop->op->get_req() << dendl;
+	     rq.push_back(repop->op);
+	     repop->op = OpRequestRef();
       }
 
       // also requeue any dups, interleaved into position
-      map<eversion_t, list<pair<OpRequestRef, version_t> > >::iterator p =
-	waiting_for_ondisk.find(repop->v);
+      map<eversion_t, list<pair<OpRequestRef, version_t> > >::iterator p = 
+      waiting_for_ondisk.find(repop->v);
       if (p != waiting_for_ondisk.end()) {
-	dout(10) << " also requeuing ondisk waiters " << p->second << dendl;
-	for (list<pair<OpRequestRef, version_t> >::iterator i =
-	       p->second.begin();
-	     i != p->second.end();
-	     ++i) {
-	  rq.push_back(i->first);
-	}
-	waiting_for_ondisk.erase(p);
+	     dout(10) << " also requeuing ondisk waiters " << p->second << dendl;
+	     for (list<pair<OpRequestRef, version_t> >::iterator i = p->second.begin();
+	          i != p->second.end(); ++i) {
+	       rq.push_back(i->first);
+	     }
+	     waiting_for_ondisk.erase(p);
       }
     }
-
-    repop->unlock();
     remove_repop(repop);
   }
 
@@ -10775,9 +10730,7 @@ void PrimaryLogPG::apply_and_flush_repops(bool requeue)
     RepSub * repop_sub = static_cast<RepSub*>(comp_item);
     assert(repop_sub);
     dout(10) << " canceling repop_sub tid: " << comp_item->get_tid() << dendl;
-    repop_sub->lock();
     repop_sub_queue.pop_front();
-    repop_sub->unlock();
     delete repop_sub;
   }
 
@@ -10787,16 +10740,12 @@ void PrimaryLogPG::apply_and_flush_repops(bool requeue)
     requeue_ops(rq);
     if (!waiting_for_ondisk.empty()) {
       for (map<eversion_t, list<pair<OpRequestRef, version_t> > >::iterator i =
-	     waiting_for_ondisk.begin();
-	   i != waiting_for_ondisk.end();
-	   ++i) {
-	for (list<pair<OpRequestRef, version_t> >::iterator j =
-	       i->second.begin();
-	     j != i->second.end();
-	     ++j) {
-	  derr << __func__ << ": op " << *(j->first->get_req()) << " waiting on "
-	       << i->first << dendl;
-	}
+           waiting_for_ondisk.begin(); i != waiting_for_ondisk.end(); ++i) {
+        for (list<pair<OpRequestRef, version_t> >::iterator j = i->second.begin();
+	          j != i->second.end(); ++j) {
+	       derr << __func__ << ": op " << *(j->first->get_req()) << " waiting on "
+	            << i->first << dendl;
+	     }
       }
       assert(waiting_for_ondisk.empty());
     }
@@ -10885,7 +10834,7 @@ void PrimaryLogPG::on_shutdown()
   cancel_flush_ops(false);
   cancel_proxy_ops(false);
 
-  _repop_queue_lock.Lock();
+  //_repop_queue_lock.Lock();
   apply_and_flush_repops(false);
   cancel_log_updates();
   // we must remove PGRefs, so do this this prior to release_backoffs() callers
@@ -10894,7 +10843,7 @@ void PrimaryLogPG::on_shutdown()
   snap_trimmer_machine.process_event(Reset());
 
   pgbackend->on_change();
-  _repop_queue_lock.Unlock();
+  //_repop_queue_lock.Unlock();
 
   context_registry_on_change();
   object_contexts.clear();
@@ -10973,7 +10922,7 @@ void PrimaryLogPG::on_change(ObjectStore::Transaction *t)
 {
   dout(10) << "on_change" << dendl;
 
-  do_completion(false);
+  //do_completion(false);
 
   if (hit_set && hit_set->insert_count() == 0) {
     dout(20) << " discarding empty hit_set" << dendl;
@@ -11053,7 +11002,7 @@ void PrimaryLogPG::on_change(ObjectStore::Transaction *t)
 
   // this will requeue ops we were working on but didn't finish, and
   // any dups
-  _repop_queue_lock.Lock();
+  //_repop_queue_lock.Lock();
   apply_and_flush_repops(is_primary());
   cancel_log_updates();
 
@@ -11064,7 +11013,7 @@ void PrimaryLogPG::on_change(ObjectStore::Transaction *t)
   pgbackend->on_change_cleanup(t);
   scrubber.cleanup_store(t);
   pgbackend->on_change();
-  _repop_queue_lock.Unlock();
+  //_repop_queue_lock.Unlock();
 
   // clear snap_trimmer state
   snap_trimmer_machine.process_event(Reset());
@@ -13426,22 +13375,21 @@ public:
   }
 };
 
-void PrimaryLogPG::add_completion_q(CompletionItem *comp_item)
-{
-  osd->_queue_for_completion(get_pgid(), comp_item->get_op(), false,  new DoLazyCompletion(this));
-
-  if (comp_item) {
-    dout(20) << __func__ << " add completion item : " << comp_item << 
-         " type: " << comp_item->comp_type << " rep_tid: " << comp_item->get_tid() << 
-         " op: " << comp_item->get_op() << dendl;
-  }
-}
-
 CompletionItem * PrimaryLogPG::new_sub_comp_item(OpRequestRef op)
 {
   RepSub *repop_sub = new_repop_sub(op, op->get_req()->get_tid(), OP_COMP_SECONDARY_OP);
   assert(repop_sub);
   return repop_sub;
+}
+
+void PrimaryLogPG::pg_lock()
+{
+  lock();
+}
+
+void PrimaryLogPG::pg_unlock()
+{
+  unlock();
 }
 
 bool PrimaryLogPG::do_completion(bool need_lock)
@@ -13451,61 +13399,52 @@ bool PrimaryLogPG::do_completion(bool need_lock)
     lock();
   }
 
-  _repop_queue_lock.Lock();
   while (!repop_sub_queue.empty()) {
     CompletionItem * comp_item = repop_sub_queue.front();
     assert(comp_item);
-    comp_item->lock();
-    if (comp_item->is_completed()) {
-      dout(20) << __func__ << " " << " completion item: " << comp_item 
-              << " rep_tid: " << comp_item->get_tid() << " comp_type: " 
-              << comp_item->comp_type << dendl;
-      assert(comp_item->comp_type == OP_COMP_SECONDARY_OP);
-      do_sub_comp(comp_item);
-      comp_item->unlock();
-      RepSub * repop_sub = static_cast<RepSub*>(comp_item);
-      assert(repop_sub_queue.front() == repop_sub);
-      repop_sub_queue.pop_front();
-      delete repop_sub;
-    } else {
-      comp_item->unlock();
+    if (!comp_item->is_completed()) {
       remain_work = true;
       break;
     }
+
+    dout(10) << __func__ << " " << " completion item: " << comp_item 
+           << " rep_tid: " << comp_item->get_tid() << " comp_type: " 
+           << comp_item->comp_type << dendl;
+    assert(comp_item->comp_type == OP_COMP_SECONDARY_OP);
+    do_sub_comp(comp_item);
+    RepSub * repop_sub = static_cast<RepSub*>(comp_item);
+    assert(repop_sub_queue.front() == repop_sub);
+    repop_sub_queue.pop_front();
+    delete repop_sub;
   }
 
   while (!repop_queue.empty()) {
     CompletionItem * comp_item = repop_queue.front();
     assert(comp_item);
-    comp_item->lock();
-    if (comp_item->is_completed()) {
-      dout(20) << __func__ << " " << " completion item: " << comp_item 
-              << " rep_tid: " << comp_item->get_tid() << " comp_type: " 
-              << comp_item->comp_type << dendl;
-      assert(comp_item->comp_type == OP_COMP_PRIMARY_OP || 
-	     comp_item->comp_type == OP_COMP_NO_OP);
-      do_primary_comp(comp_item);
-      comp_item->unlock();
-      RepGather * repop = static_cast<RepGather*>(comp_item);
-      if (repop_queue.front() != repop) {
-	if (!repop->applies_with_commit) {
-	  dout(0) << " removing " << *repop << dendl;
-	  dout(0) << "   q front is " << *repop_queue.front() << dendl; 
-	  assert(repop_queue.front() == repop);
-	}
-      }
-      ceph_tid_t del_tid = repop->rep_tid;
-      repop_queue.pop_front();
-      remove_repop(repop);
-      pgbackend->erase_inprogress_op(del_tid);
-    } else {
-      comp_item->unlock();
+    if (!comp_item->is_completed()) {
       remain_work = true;
       break;
     }
-  }
 
-  _repop_queue_lock.Unlock();
+    dout(10) << __func__ << " " << " completion item: " << comp_item 
+           << " rep_tid: " << comp_item->get_tid() << " comp_type: " 
+           << comp_item->comp_type << dendl;
+    assert(comp_item->comp_type == OP_COMP_PRIMARY_OP ||
+           comp_item->comp_type == OP_COMP_NO_OP);
+    do_primary_comp(comp_item);
+    RepGather * repop = static_cast<RepGather*>(comp_item);
+    if (repop_queue.front() != repop) {
+      if (!repop->applies_with_commit) {
+        dout(0) << " removing " << *repop << dendl;
+        dout(0) << " q front is " << *repop_queue.front() << dendl; 
+        assert(repop_queue.front() == repop);
+      }
+    }
+    ceph_tid_t del_tid = repop->rep_tid;
+    repop_queue.pop_front();
+    remove_repop(repop);
+    pgbackend->erase_inprogress_op(del_tid);
+  }
 
   if (need_lock) {
     unlock();
@@ -13515,7 +13454,7 @@ bool PrimaryLogPG::do_completion(bool need_lock)
 
 void PrimaryLogPG::do_primary_comp(CompletionItem * comp_item)
 {
-  RepGather * repop = static_cast<RepGather*>(comp_item);
+  RepGather *repop = static_cast<RepGather*>(comp_item);
   assert(repop);
 
   dout(20) << __func__ << " " << " primary op, tid: " << repop->rep_tid 
@@ -13535,30 +13474,38 @@ void PrimaryLogPG::do_primary_comp(CompletionItem * comp_item)
     }
 
     // last_update_applied
-    assert(last_update_applied <= repop->v);
+    //assert(last_update_applied <= repop->v);
     op_applied(repop->v);
 
-    update_peer_last_complete_ondisk(repop->fromosd, repop->fromlcod);
+    for(map<pg_shard_t,eversion_t>::iterator iter = repop->peer_last_complete_ondisk.begin(); 
+        iter != repop->peer_last_complete_ondisk.end(); 
+        iter++)
+    {
+       if (iter->second != eversion_t())
+       {
+         update_peer_last_complete_ondisk(iter->first, iter->second);
+       }
+    }
+    repop->peer_last_complete_ondisk.clear();
     repop->rep_done = true;
   }
-  for (auto p = comp_item->on_applied_pg_lock.begin();
-       p != comp_item->on_applied_pg_lock.end();
-       comp_item->on_applied_pg_lock.erase(p++)) {
-    (*p)();
-  }
- 
+
   /* please check waiting_for_ondisk, ack cases */
   // send dup commits, in order
   if (waiting_for_ondisk.count(repop->v)) {
     assert(waiting_for_ondisk.begin()->first == repop->v);
-    for (list<pair<OpRequestRef, version_t> >::iterator i =
-          waiting_for_ondisk[repop->v].begin();
-        i != waiting_for_ondisk[repop->v].end();
-        ++i) {
-      osd->reply_op_error(i->first, 0, repop->v,
-                         i->second);
+    for (list<pair<OpRequestRef, version_t> >::iterator i = waiting_for_ondisk[repop->v].begin();
+         i != waiting_for_ondisk[repop->v].end();
+         ++i) {
+      osd->reply_op_error(i->first, 0, repop->v, i->second);
     }
     waiting_for_ondisk.erase(repop->v);
+  }
+
+  for (auto p = comp_item->on_applied_pg_lock.begin();
+       p != comp_item->on_applied_pg_lock.end();
+       comp_item->on_applied_pg_lock.erase(p++)) {
+    (*p)();
   }
 
   publish_stats_to_osd();
@@ -13590,7 +13537,7 @@ void PrimaryLogPG::do_sub_comp(CompletionItem * comp_item)
     (*p)();
   }
 
-  assert(last_update_applied <= repop_sub->lua);
+  //assert(last_update_applied <= repop_sub->lua);
   op_applied(repop_sub->lua);
 }
 
@@ -14485,16 +14432,6 @@ int PrimaryLogPG::getattrs_maybe_cache(
 
 bool PrimaryLogPG::check_failsafe_full(ostream &ss) {
     return osd->check_failsafe_full(ss);
-}
-
-void PrimaryLogPG::repop_queue_lock() 
-{
-  _repop_queue_lock.Lock();
-}
-
-void PrimaryLogPG::repop_queue_unlock()
-{
-  _repop_queue_lock.Unlock();
 }
 
 void intrusive_ptr_add_ref(PrimaryLogPG *pg) { pg->get("intptr"); }

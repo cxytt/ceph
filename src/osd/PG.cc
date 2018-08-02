@@ -3214,22 +3214,19 @@ void PG::append_log(
       &handler);
     if (!comp_item) {
       t.register_on_applied(
-	new C_UpdateLastRollbackInfoTrimmedToApplied(
-	 this,
-	 get_osdmap()->get_epoch(),
-	 roll_forward_to));
+        new C_UpdateLastRollbackInfoTrimmedToApplied(
+        this, get_osdmap()->get_epoch(), roll_forward_to));
     } else {
       epoch_t e = get_osdmap()->get_epoch();
       eversion_t v = info.last_update;
       PGRef pg(this);
       comp_item->register_on_applied_pg_lock(
-	[this, e, v, pg]() {
-	  if (!pg->pg_has_reset_since(e)) {
-	    assert(pg->last_rollback_info_trimmed_to_applied <= v);
-	    pg->last_rollback_info_trimmed_to_applied = v;
-	  }
-	}
-      );
+        [this, e, v, pg]() {
+        if (!pg->pg_has_reset_since(e)) {
+          assert(pg->last_rollback_info_trimmed_to_applied <= v);
+          pg->last_rollback_info_trimmed_to_applied = v;
+        }
+      });
     }
   }
 

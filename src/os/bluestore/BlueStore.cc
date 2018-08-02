@@ -9042,6 +9042,12 @@ int BlueStore::queue_transactions(
   return 0;
 }
 
+void BlueStore::add_reply_to_finisher(Sequencer *osr, Context *onreply)
+{
+  unsigned n = osr->shard_hint.hash_to_shard(m_finisher_num);
+  finishers[n]->queue(onreply);
+}
+
 void BlueStore::_txc_aio_submit(TransContext *txc)
 {
   dout(10) << __func__ << " txc " << txc << dendl;

@@ -284,7 +284,6 @@ public:
   template<class T> class BlessedGenContext;
   class BlessedContext;
   Context *bless_context(Context *c) override;
-  Context *op_comp_context(Context *c, CompletionItem *comp_item);
 
   GenContext<ThreadPool::TPHandle&> *bless_gencontext(
     GenContext<ThreadPool::TPHandle&> *c) override;
@@ -299,6 +298,10 @@ public:
   void queue_transactions(vector<ObjectStore::Transaction>& tls,
 			  OpRequestRef op) override {
     osd->store->queue_transactions(osr.get(), tls, 0, 0, 0, op, NULL);
+  }
+
+  void add_reply_to_finisher(Context *onreply) {
+    osd->store->add_reply_to_finisher(osr.get(),onreply);
   }
   epoch_t get_epoch() const override {
     return get_osdmap()->get_epoch();
@@ -396,11 +399,8 @@ public:
     if (hset_history) {
       info.hit_set = *hset_history;
     }
-    if (!comp_item) {
-      append_log(logv, trim_to, roll_forward_to, t, transaction_applied);
-    } else {
-      append_log(logv, trim_to, roll_forward_to, t, transaction_applied, comp_item);
-    }
+
+    append_log(logv, trim_to, roll_forward_to, t, transaction_applied, comp_item);
   }
 
   struct C_OSD_OnApplied;
@@ -731,13 +731,11 @@ public:
     list<std::function<void()>> on_success_op_lock;
     list<std::function<void()>> on_finish_op_lock;
 
-    Mutex comp_lock;
     pg_shard_t shard;
     version_t epoch;
     /* update_peer_last_complete_ondisk() */
-    pg_shard_t fromosd;
-    eversion_t fromlcod;
-    
+    map<pg_shard_t,eversion_t> peer_last_complete_ondisk;    
+
     RepGather(
       OpContext *c, ceph_tid_t rt,
       eversion_t lc,
@@ -759,8 +757,7 @@ public:
       on_applied_op_lock(std::move(c->on_applied_op_lock)),
       on_committed_op_lock(std::move(c->on_committed_op_lock)),
       on_success_op_lock(std::move(c->on_success_op_lock)),
-      on_finish_op_lock(std::move(c->on_finish_op_lock)),
-      comp_lock("RepGather::lock") {}
+      on_finish_op_lock(std::move(c->on_finish_op_lock)) {}
 
     RepGather(
       ObcLockManager &&manager,
@@ -779,10 +776,9 @@ public:
       all_applied(false), all_committed(false),
       applies_with_commit(applies_with_commit),
       pg_local_last_complete(lc),
-      lock_manager(std::move(manager)),
-      comp_lock("RepGather::lock") {
+      lock_manager(std::move(manager)) {
       if (on_complete) {
-	on_success.push_back(std::move(*on_complete));
+        on_success.push_back(std::move(*on_complete));
       }
     }
 
@@ -793,9 +789,7 @@ public:
       rep_tid(rt),
       rep_aborted(false), rep_done(false),
       all_applied(false), all_committed(false),
-      applies_with_commit(false),
-      comp_lock("RepGather::lock") {
-    }
+      applies_with_commit(false) {}
 
     RepGather *get() {
       nref++;
@@ -804,20 +798,14 @@ public:
     void put() {
       assert(nref > 0);
       if (--nref == 0) {
-	assert(on_applied.empty());
-	/*
-	generic_dout(0) << "deleting " << this << " rep_tid: " 
-		       << rep_tid << " comp_item " << comp_item << dendl;
-	*/
-	delete this;
-	//generic_dout(0) << "deleting " << this << dendl;
+        assert(on_applied.empty());
+        delete this;
+        /*
+          generic_dout(0) << "deleting " << this << " rep_tid: "
+                          << rep_tid << " comp_item " << comp_item << dendl;
+          generic_dout(0) << "deleting " << this << dendl;
+     	  */
       }
-    }
-    void lock() {
-      comp_lock.Lock();
-    }
-    void unlock() {
-      comp_lock.Unlock();
     }
     ceph_tid_t get_tid() {
       return rep_tid;
@@ -958,15 +946,12 @@ protected:
     if (!to_req.empty()) {
       // requeue at front of scrub blocking queue if we are blocked by scrub
       for (auto &&p: to_req) {
-	if (scrubber.write_blocked_by_scrub(p.first.get_head())) {
-	  waiting_for_scrub.splice(
-	    waiting_for_scrub.begin(),
-	    p.second,
-	    p.second.begin(),
-	    p.second.end());
-	} else {
-	  requeue_ops(p.second);
-	}
+        if (scrubber.write_blocked_by_scrub(p.first.get_head())) {
+          waiting_for_scrub.splice(
+            waiting_for_scrub.begin(), p.second, p.second.begin(), p.second.end());
+        } else {
+          requeue_ops(p.second);
+      	  }
       }
     }
   }
@@ -1952,12 +1937,11 @@ public:
     ObjectContextRef obc,
     map<string, bufferlist> *out);
 public:
+  void pg_lock();
+  void pg_unlock();
   bool do_completion(bool need_lock);
-  void add_completion_q(CompletionItem *comp_item);
   void do_primary_comp(CompletionItem * comp_item);
   void do_sub_comp(CompletionItem * comp_item);
-  void repop_queue_lock();
-  void repop_queue_unlock();
   RepSub *new_repop_sub(OpRequestRef op, ceph_tid_t rep_tid, int type);
   CompletionItem *new_sub_comp_item(OpRequestRef op);
 private:

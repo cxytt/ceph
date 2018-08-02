@@ -170,20 +170,20 @@ public:
     public:
       Locker(PGRef pg) : pg(pg) {}
       void lock() override final {
-	pg->lock();
+        pg->lock();
       }
       void unlock() override final {
-	pg->unlock();
+        pg->unlock();
       }
       void lock(PGRef pgref) override final {
-       assert(pgref);
-       pgref->lock();
-       return;
+        assert(pgref);
+        pgref->lock();
+        return;
       }
       void unlock(PGRef pgref) override final {
-       assert(pgref);
-       pgref->unlock();
-       return;
+        assert(pgref);
+        pgref->unlock();
+        return;
       }
     };
     return OpQueueItem::OrderLocker::Ref(
@@ -216,21 +216,17 @@ public:
     public:
       Locker(PGRef pg) : pg(pg) {}
       void lock() override final {
-       pg->repop_queue_lock();
        return;
       }
       void unlock() override final {
-       pg->repop_queue_unlock();
        return;
       }
       void lock(PGRef pgref) override final {
        assert(pgref);
-       pgref->repop_queue_lock();
        return;
       }
       void unlock(PGRef pgref) override final {
        assert(pgref);
-       pgref->repop_queue_unlock();
        return;
       }
     };

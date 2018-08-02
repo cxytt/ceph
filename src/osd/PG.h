@@ -516,9 +516,7 @@ public:
     return ref;
   }
 
-  virtual void repop_queue_lock() = 0;
-  virtual void repop_queue_unlock() = 0;
-  virtual bool do_completion(bool need_lock) {return false;}
+  virtual bool do_completion(bool need_lock, bool need_queue_lock=true) {return false;}
 
 
   // ctor
@@ -1204,8 +1202,7 @@ protected:
   // Callbacks should assume pg (and nothing else) is locked
   map<hobject_t, list<Context*>> callbacks_for_degraded_object;
 
-  map<eversion_t,
-      list<pair<OpRequestRef, version_t> > > waiting_for_ondisk;
+  map<eversion_t, list<pair<OpRequestRef, version_t> > > waiting_for_ondisk;
 
   void requeue_object_waiters(map<hobject_t, list<OpRequestRef>>& m);
   void requeue_op(OpRequestRef op);
@@ -1282,14 +1279,14 @@ protected:
     eversion_t min = last_complete_ondisk;
     assert(!actingbackfill.empty());
     for (set<pg_shard_t>::iterator i = actingbackfill.begin();
-	 i != actingbackfill.end();
-	 ++i) {
+	      i != actingbackfill.end();
+	      ++i) {
       if (*i == get_primary()) continue;
       if (peer_last_complete_ondisk.count(*i) == 0)
-	return false;   // we don't have complete info
+	     return false;   // we don't have complete info
       eversion_t a = peer_last_complete_ondisk[*i];
       if (a < min)
-	min = a;
+	     min = a;
     }
     if (min == min_last_complete_ondisk)
       return false;
@@ -2775,8 +2772,6 @@ public:
   CompletionItem():comp_type(OP_COMP_PRIMARY_OP) {}
   virtual ~CompletionItem() {}
 
-  virtual void lock() = 0;
-  virtual void unlock() = 0;
   virtual ceph_tid_t get_tid() = 0;
   virtual OpRequestRef get_op() = 0;
   virtual void set_applied() = 0;

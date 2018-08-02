@@ -1513,6 +1513,8 @@ public:
       osr, tls, onreadable, oncommit, onreadable_sync, oncomplete, op);
   }
 
+ virtual void add_reply_to_finisher(Sequencer *osr, Context *onreply) {}
+
  public:
   ObjectStore(CephContext* cct,
 	      const std::string& path_) : path(path_), cct(cct) {}

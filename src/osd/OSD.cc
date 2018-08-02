@@ -9004,6 +9004,7 @@ void OSD::enqueue_op(spg_t pg, OpRequestRef& op, epoch_t epoch)
   op->osd_trace.keyval("cost", op->get_req()->get_cost());
   op->mark_queued_for_pg();
   logger->tinc(l_osd_op_before_queue_op_lat, latency);
+
   if (!can_op_lock(op)) {
     op_shardedwq.queue(
       OpQueueItem(
@@ -9022,7 +9023,6 @@ void OSD::enqueue_op(spg_t pg, OpRequestRef& op, epoch_t epoch)
 	op->get_req()->get_recv_stamp(),
 	op->get_req()->get_source().num(),
 	epoch));
-
   }
 }
 
@@ -9062,15 +9062,15 @@ void OSD::dequeue_op(
   Session *session = static_cast<Session *>(
     op->get_req()->get_connection()->get_priv());
   if (session) {
-    if (!can_op_lock(op)) {
-      maybe_share_map(session, op, pg->get_osdmap());
-      session->put();
-    } else if (can_op_lock(op)) {
+    if (can_op_lock(op)) {
       if (op->check_send_map) {
-	maybe_share_map(session, op, osdmap);
+        maybe_share_map(session, op, osdmap);
       } 
-      session->put();
+    } else {
+      maybe_share_map(session, op, pg->get_osdmap());
     }
+
+    session->put();
   }
 
   if (pg->is_deleting())
