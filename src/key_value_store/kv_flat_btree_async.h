@@ -116,7 +116,7 @@ struct key_data {
     DECODE_FINISH(p);
   }
 };
-WRITE_CLASS_ENCODER(key_data)
+//WRITE_CLASS_ENCODER(key_data)
 
 
 /**
@@ -197,7 +197,7 @@ struct object_data {
     DECODE_FINISH(p);
   }
 };
-WRITE_CLASS_ENCODER(object_data)
+//WRITE_CLASS_ENCODER(object_data)
 
 /**
  * information about objects to be created by a split or merge - stored in the
@@ -245,7 +245,7 @@ struct create_data {
     DECODE_FINISH(p);
   }
 };
-WRITE_CLASS_ENCODER(create_data)
+//WRITE_CLASS_ENCODER(create_data)
 
 /**
  * information about objects to be deleted by a split or merge - stored in the
@@ -294,7 +294,7 @@ struct delete_data {
     DECODE_FINISH(p);
   }
 };
-WRITE_CLASS_ENCODER(delete_data)
+//WRITE_CLASS_ENCODER(delete_data)
 
 /**
  * The index object is a key value map that stores
@@ -412,7 +412,7 @@ struct index_data {
     return strm.str();
   }
 };
-WRITE_CLASS_ENCODER(index_data)
+//WRITE_CLASS_ENCODER(index_data)
 
 /**
  * Structure to store information read from the index for reuse.

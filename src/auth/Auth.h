@@ -44,7 +44,7 @@ struct EntityAuth {
     ::decode(caps, bl);
   }
 };
-WRITE_CLASS_ENCODER(EntityAuth)
+//WRITE_CLASS_ENCODER(EntityAuth)
 
 static inline ostream& operator<<(ostream& out, const EntityAuth& a) {
   return out << "auth(auid = " << a.auid << " key=" << a.key << " with " << a.caps.size() << " caps)";
@@ -72,7 +72,7 @@ struct AuthCapsInfo {
     ::decode(caps, bl);
   }
 };
-WRITE_CLASS_ENCODER(AuthCapsInfo)
+//WRITE_CLASS_ENCODER(AuthCapsInfo)
 
 /*
  * The ticket (if properly validated) authorizes the principal use
@@ -122,7 +122,7 @@ struct AuthTicket {
     ::decode(flags, bl);
   }
 };
-WRITE_CLASS_ENCODER(AuthTicket)
+//WRITE_CLASS_ENCODER(AuthTicket)
 
 
 /*
@@ -166,7 +166,7 @@ struct ExpiringCryptoKey {
     ::decode(expiration, bl);
   }
 };
-WRITE_CLASS_ENCODER(ExpiringCryptoKey)
+//WRITE_CLASS_ENCODER(ExpiringCryptoKey)
 
 static inline ostream& operator<<(ostream& out, const ExpiringCryptoKey& c)
 {
@@ -228,7 +228,7 @@ struct RotatingSecrets {
 
   void dump();
 };
-WRITE_CLASS_ENCODER(RotatingSecrets)
+//WRITE_CLASS_ENCODER(RotatingSecrets)
 
 
 

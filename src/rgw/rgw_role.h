@@ -132,6 +132,6 @@ public:
                                       const string& tenant,
                                       vector<RGWRole>& roles);
 };
-WRITE_CLASS_ENCODER(RGWRole)
+//WRITE_CLASS_ENCODER(RGWRole)
 #endif /* CEPH_RGW_ROLE_H */
 

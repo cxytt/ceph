@@ -700,7 +700,7 @@ public:
     out << ")";
   }
 };
-WRITE_CLASS_ENCODER(SimpleLock)
+//WRITE_CLASS_ENCODER(SimpleLock)
 
 inline ostream& operator<<(ostream& out, const SimpleLock& l) 
 {

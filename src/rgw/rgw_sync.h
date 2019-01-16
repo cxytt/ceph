@@ -101,7 +101,7 @@ struct rgw_sync_error_info {
 
   void dump(Formatter *f) const;
 };
-WRITE_CLASS_ENCODER(rgw_sync_error_info)
+//WRITE_CLASS_ENCODER(rgw_sync_error_info)
 
 #define DEFAULT_BACKOFF_MAX 30
 

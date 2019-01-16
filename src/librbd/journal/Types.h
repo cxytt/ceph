@@ -676,8 +676,8 @@ struct Listener {
 } // namespace journal
 } // namespace librbd
 
-WRITE_CLASS_ENCODER(librbd::journal::EventEntry);
-WRITE_CLASS_ENCODER(librbd::journal::ClientData);
-WRITE_CLASS_ENCODER(librbd::journal::TagData);
+//WRITE_CLASS_ENCODER(librbd::journal::EventEntry);
+//WRITE_CLASS_ENCODER(librbd::journal::ClientData);
+//WRITE_CLASS_ENCODER(librbd::journal::TagData);
 
 #endif // CEPH_LIBRBD_JOURNAL_TYPES_H

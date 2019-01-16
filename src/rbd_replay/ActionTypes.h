@@ -57,7 +57,7 @@ struct Dependency {
   static void generate_test_instances(std::list<Dependency *> &o);
 };
 
-WRITE_CLASS_ENCODER(Dependency);
+//WRITE_CLASS_ENCODER(Dependency);
 
 typedef std::vector<Dependency> Dependencies;
 
@@ -328,7 +328,7 @@ private:
   void decode(__u8 version, bufferlist::iterator &it);
 };
 
-WRITE_CLASS_ENCODER(ActionEntry);
+//WRITE_CLASS_ENCODER(ActionEntry);
 
 } // namespace action
 } // namespace rbd_replay

@@ -110,7 +110,7 @@ public:
   void dump(Formatter *f) const;
   static void generate_test_instances(list<FSSuperblock*>& o);
 };
-WRITE_CLASS_ENCODER(FSSuperblock)
+//WRITE_CLASS_ENCODER(FSSuperblock)
 
 inline ostream& operator<<(ostream& out, const FSSuperblock& sb)
 {

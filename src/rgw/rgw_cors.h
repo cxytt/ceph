@@ -88,7 +88,7 @@ public:
   void dump(Formatter *f) const;
   bool is_header_allowed(const char *hdr, size_t len);
 };
-WRITE_CLASS_ENCODER(RGWCORSRule)
+//WRITE_CLASS_ENCODER(RGWCORSRule)
 
 class RGWCORSConfiguration
 {
@@ -123,7 +123,7 @@ class RGWCORSConfiguration
     rules.push_front(r);    
   }
 };
-WRITE_CLASS_ENCODER(RGWCORSConfiguration)
+//WRITE_CLASS_ENCODER(RGWCORSConfiguration)
 
 static inline int validate_name_string(string& o) {
   if (o.length() == 0)

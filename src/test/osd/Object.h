@@ -47,7 +47,7 @@ public:
   void encode(bufferlist &bl) const;
   void decode(bufferlist::iterator &bp);
 };
-WRITE_CLASS_ENCODER(ContDesc)
+//WRITE_CLASS_ENCODER(ContDesc)
 
 std::ostream &operator<<(std::ostream &out, const ContDesc &rhs);
 

@@ -45,7 +45,7 @@ struct cls_replica_log_item_marker {
   void decode_json(JSONObj *obj);
   static void generate_test_instances(std::list<cls_replica_log_item_marker*>& ls);
 };
-WRITE_CLASS_ENCODER(cls_replica_log_item_marker)
+//WRITE_CLASS_ENCODER(cls_replica_log_item_marker)
 
 struct cls_replica_log_progress_marker {
   string entity_id; // the name of the entity setting the progress marker
@@ -88,7 +88,7 @@ struct cls_replica_log_progress_marker {
   void decode_json(JSONObj *obj);
   static void generate_test_instances(std::list<cls_replica_log_progress_marker*>& ls);
 };
-WRITE_CLASS_ENCODER(cls_replica_log_progress_marker)
+//WRITE_CLASS_ENCODER(cls_replica_log_progress_marker)
 
 class cls_replica_log_bound {
   /**
@@ -189,6 +189,6 @@ public:
   void decode_json(JSONObj *obj);
   static void generate_test_instances(std::list<cls_replica_log_bound*>& ls);
 };
-WRITE_CLASS_ENCODER(cls_replica_log_bound)
+//WRITE_CLASS_ENCODER(cls_replica_log_bound)
 
 #endif /* CLS_REPLICA_LOG_TYPES_H_ */

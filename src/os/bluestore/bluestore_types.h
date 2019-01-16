@@ -44,7 +44,7 @@ struct bluestore_bdev_label_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<bluestore_bdev_label_t*>& o);
 };
-WRITE_CLASS_ENCODER(bluestore_bdev_label_t)
+//WRITE_CLASS_ENCODER(bluestore_bdev_label_t)
 
 ostream& operator<<(ostream& out, const bluestore_bdev_label_t& l);
 
@@ -62,7 +62,7 @@ struct bluestore_cnode_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<bluestore_cnode_t*>& o);
 };
-WRITE_CLASS_DENC(bluestore_cnode_t)
+//WRITE_CLASS_DENC(bluestore_cnode_t)
 
 ostream& operator<<(ostream& out, const bluestore_cnode_t& l);
 
@@ -162,7 +162,7 @@ struct bluestore_pextent_t : public AllocExtent {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<bluestore_pextent_t*>& ls);
 };
-WRITE_CLASS_DENC(bluestore_pextent_t)
+//WRITE_CLASS_DENC(bluestore_pextent_t)
 
 ostream& operator<<(ostream& out, const bluestore_pextent_t& o);
 
@@ -278,7 +278,7 @@ struct bluestore_extent_ref_map_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<bluestore_extent_ref_map_t*>& o);
 };
-WRITE_CLASS_DENC(bluestore_extent_ref_map_t)
+//WRITE_CLASS_DENC(bluestore_extent_ref_map_t)
 
 
 ostream& operator<<(ostream& out, const bluestore_extent_ref_map_t& rm);
@@ -477,7 +477,7 @@ struct bluestore_blob_use_tracker_t {
 private:
   void allocate();
 };
-WRITE_CLASS_DENC(bluestore_blob_use_tracker_t)
+//WRITE_CLASS_DENC(bluestore_blob_use_tracker_t)
 ostream& operator<<(ostream& out, const bluestore_blob_use_tracker_t& rm);
 
 /// blob: a piece of data on disk
@@ -904,7 +904,7 @@ public:
     const PExtentVector& logical,
     PExtentVector* r);
 };
-WRITE_CLASS_DENC_FEATURED(bluestore_blob_t)
+//WRITE_CLASS_DENC_FEATURED(bluestore_blob_t)
 
 ostream& operator<<(ostream& out, const bluestore_blob_t& o);
 
@@ -930,7 +930,7 @@ struct bluestore_shared_blob_t {
     return ref_map.empty();
   }
 };
-WRITE_CLASS_DENC(bluestore_shared_blob_t)
+//WRITE_CLASS_DENC(bluestore_shared_blob_t)
 
 ostream& operator<<(ostream& out, const bluestore_shared_blob_t& o);
 
@@ -1008,8 +1008,8 @@ struct bluestore_onode_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<bluestore_onode_t*>& o);
 };
-WRITE_CLASS_DENC(bluestore_onode_t::shard_info)
-WRITE_CLASS_DENC(bluestore_onode_t)
+//WRITE_CLASS_DENC(bluestore_onode_t::shard_info)
+//WRITE_CLASS_DENC(bluestore_onode_t)
 
 ostream& operator<<(ostream& out, const bluestore_onode_t::shard_info& si);
 
@@ -1033,7 +1033,7 @@ struct bluestore_deferred_op_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<bluestore_deferred_op_t*>& o);
 };
-WRITE_CLASS_DENC(bluestore_deferred_op_t)
+//WRITE_CLASS_DENC(bluestore_deferred_op_t)
 
 
 /// writeahead-logged transaction
@@ -1054,7 +1054,7 @@ struct bluestore_deferred_transaction_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<bluestore_deferred_transaction_t*>& o);
 };
-WRITE_CLASS_DENC(bluestore_deferred_transaction_t)
+//WRITE_CLASS_DENC(bluestore_deferred_transaction_t)
 
 struct bluestore_compression_header_t {
   uint8_t type = Compressor::COMP_ALG_NONE;
@@ -1073,7 +1073,7 @@ struct bluestore_compression_header_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<bluestore_compression_header_t*>& o);
 };
-WRITE_CLASS_DENC(bluestore_compression_header_t)
+//WRITE_CLASS_DENC(bluestore_compression_header_t)
 
 
 #endif

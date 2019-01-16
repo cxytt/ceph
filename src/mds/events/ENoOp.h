@@ -30,6 +30,6 @@ public:
 
   void replay(MDSRank *mds) override;
 };
-WRITE_CLASS_ENCODER_FEATURES(ENoOp)
+//WRITE_CLASS_ENCODER_FEATURES(ENoOp)
 
 #endif

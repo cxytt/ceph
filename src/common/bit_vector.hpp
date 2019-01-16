@@ -507,7 +507,7 @@ void BitVector<_b>::generate_test_instances(std::list<BitVector *> &o) {
 
 }
 
-WRITE_CLASS_ENCODER(ceph::BitVector<2>)
+//WRITE_CLASS_ENCODER(ceph::BitVector<2>)
 
 template <uint8_t _b>
 inline std::ostream& operator<<(std::ostream& out, const ceph::BitVector<_b> &b)

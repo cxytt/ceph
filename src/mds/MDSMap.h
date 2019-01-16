@@ -663,8 +663,8 @@ public:
 
   static bool state_transition_valid(DaemonState prev, DaemonState next);
 };
-WRITE_CLASS_ENCODER_FEATURES(MDSMap::mds_info_t)
-WRITE_CLASS_ENCODER_FEATURES(MDSMap)
+//WRITE_CLASS_ENCODER_FEATURES(MDSMap::mds_info_t)
+//WRITE_CLASS_ENCODER_FEATURES(MDSMap)
 
 inline ostream& operator<<(ostream &out, const MDSMap &m) {
   m.print_summary(NULL, &out);

@@ -123,6 +123,6 @@ public:
   void decode(bufferlist::iterator &bl);
   static void generate_test_instances(std::list<pow2_hist_t*>& o);
 };
-WRITE_CLASS_ENCODER(pow2_hist_t)
+//WRITE_CLASS_ENCODER(pow2_hist_t)
 
 #endif /* CEPH_HISTOGRAM_H */

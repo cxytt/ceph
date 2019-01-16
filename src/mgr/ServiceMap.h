@@ -97,6 +97,6 @@ struct ServiceMap {
     return true;
   }
 };
-WRITE_CLASS_ENCODER_FEATURES(ServiceMap)
-WRITE_CLASS_ENCODER_FEATURES(ServiceMap::Service)
-WRITE_CLASS_ENCODER_FEATURES(ServiceMap::Daemon)
+//WRITE_CLASS_ENCODER_FEATURES(ServiceMap)
+//WRITE_CLASS_ENCODER_FEATURES(ServiceMap::Service)
+//WRITE_CLASS_ENCODER_FEATURES(ServiceMap::Daemon)

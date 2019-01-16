@@ -132,7 +132,7 @@ public:
 
   static void generate_test_instances(std::list<InodeStore*>& ls);
 };
-WRITE_CLASS_ENCODER_FEATURES(InodeStore)
+//WRITE_CLASS_ENCODER_FEATURES(InodeStore)
 
 // cached inode wrapper
 class CInode : public MDSCacheObject, public InodeStoreBase, public Counter<CInode> {

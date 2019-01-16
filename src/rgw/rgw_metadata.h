@@ -266,7 +266,7 @@ struct RGWMetadataLogData {
   void dump(Formatter *f) const;
   void decode_json(JSONObj *obj);
 };
-WRITE_CLASS_ENCODER(RGWMetadataLogData)
+//WRITE_CLASS_ENCODER(RGWMetadataLogData)
 
 struct RGWMetadataLogHistory {
   epoch_t oldest_realm_epoch;
@@ -287,7 +287,7 @@ struct RGWMetadataLogHistory {
 
   static const std::string oid;
 };
-WRITE_CLASS_ENCODER(RGWMetadataLogHistory)
+//WRITE_CLASS_ENCODER(RGWMetadataLogHistory)
 
 class RGWMetadataManager {
   map<string, RGWMetadataHandler *> handlers;

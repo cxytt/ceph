@@ -28,7 +28,7 @@ struct cls_log_add_op {
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(cls_log_add_op)
+//WRITE_CLASS_ENCODER(cls_log_add_op)
 
 struct cls_log_list_op {
   utime_t from_time;
@@ -57,7 +57,7 @@ struct cls_log_list_op {
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(cls_log_list_op)
+//WRITE_CLASS_ENCODER(cls_log_list_op)
 
 struct cls_log_list_ret {
   list<cls_log_entry> entries;
@@ -82,7 +82,7 @@ struct cls_log_list_ret {
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(cls_log_list_ret)
+//WRITE_CLASS_ENCODER(cls_log_list_ret)
 
 
 /*
@@ -117,7 +117,7 @@ struct cls_log_trim_op {
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(cls_log_trim_op)
+//WRITE_CLASS_ENCODER(cls_log_trim_op)
 
 struct cls_log_info_op {
   cls_log_info_op() {}
@@ -134,7 +134,7 @@ struct cls_log_info_op {
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(cls_log_info_op)
+//WRITE_CLASS_ENCODER(cls_log_info_op)
 
 struct cls_log_info_ret {
   cls_log_header header;
@@ -151,6 +151,6 @@ struct cls_log_info_ret {
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(cls_log_info_ret)
+//WRITE_CLASS_ENCODER(cls_log_info_ret)
 
 #endif

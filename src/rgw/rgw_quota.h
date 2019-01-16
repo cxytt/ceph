@@ -90,7 +90,7 @@ public:
   void decode_json(JSONObj *obj);
 
 };
-WRITE_CLASS_ENCODER(RGWQuotaInfo)
+//WRITE_CLASS_ENCODER(RGWQuotaInfo)
 
 struct rgw_bucket;
 

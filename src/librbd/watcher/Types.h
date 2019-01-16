@@ -65,7 +65,7 @@ struct Traits {
 std::ostream &operator<<(std::ostream &out,
                          const librbd::watcher::ClientId &client);
 
-WRITE_CLASS_ENCODER(librbd::watcher::ClientId);
-WRITE_CLASS_ENCODER(librbd::watcher::NotifyResponse);
+//WRITE_CLASS_ENCODER(librbd::watcher::ClientId);
+//WRITE_CLASS_ENCODER(librbd::watcher::NotifyResponse);
 
 #endif // CEPH_LIBRBD_WATCHER_TYPES_H

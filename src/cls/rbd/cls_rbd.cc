@@ -3409,7 +3409,7 @@ struct MirrorImageStatusOnDisk : cls::rbd::MirrorImageStatus {
     cls::rbd::MirrorImageStatus::decode(it);
   }
 };
-WRITE_CLASS_ENCODER_FEATURES(MirrorImageStatusOnDisk)
+//WRITE_CLASS_ENCODER_FEATURES(MirrorImageStatusOnDisk)
 
 int image_status_set(cls_method_context_t hctx, const string &global_image_id,
 		     const cls::rbd::MirrorImageStatus &status) {

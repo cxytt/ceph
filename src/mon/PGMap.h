@@ -213,8 +213,8 @@ public:
   void dump(Formatter *f) const;
   static void generate_test_instances(list<PGMapDigest*>& ls);
 };
-WRITE_CLASS_ENCODER(PGMapDigest::pg_count);
-WRITE_CLASS_ENCODER_FEATURES(PGMapDigest);
+//WRITE_CLASS_ENCODER(PGMapDigest::pg_count);
+//WRITE_CLASS_ENCODER_FEATURES(PGMapDigest);
 
 class PGMap : public PGMapDigest {
 public:
@@ -512,8 +512,8 @@ public:
 
   static void generate_test_instances(list<PGMap*>& o);
 };
-WRITE_CLASS_ENCODER_FEATURES(PGMap::Incremental)
-WRITE_CLASS_ENCODER_FEATURES(PGMap)
+//WRITE_CLASS_ENCODER_FEATURES(PGMap::Incremental)
+//WRITE_CLASS_ENCODER_FEATURES(PGMap)
 
 inline ostream& operator<<(ostream& out, const PGMapDigest& m) {
   m.print_oneline_summary(NULL, &out);

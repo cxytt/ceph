@@ -61,7 +61,7 @@ struct uuid_d {
     ::decode_raw(uuid, p);
   }
 };
-WRITE_CLASS_ENCODER(uuid_d)
+//WRITE_CLASS_ENCODER(uuid_d)
 
 inline std::ostream& operator<<(std::ostream& out, const uuid_d& u) {
   char b[37];

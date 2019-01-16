@@ -157,4 +157,4 @@ struct MonCommand {
     return (req_perms.find(p) != std::string::npos);
   }
 };
-WRITE_CLASS_ENCODER(MonCommand)
+//WRITE_CLASS_ENCODER(MonCommand)

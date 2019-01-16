@@ -208,7 +208,7 @@ struct frag_info_t : public scatter_info_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<frag_info_t*>& ls);
 };
-WRITE_CLASS_ENCODER(frag_info_t)
+//WRITE_CLASS_ENCODER(frag_info_t)
 
 inline bool operator==(const frag_info_t &l, const frag_info_t &r) {
   return memcmp(&l, &r, sizeof(l)) == 0;
@@ -271,7 +271,7 @@ struct nest_info_t : public scatter_info_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<nest_info_t*>& ls);
 };
-WRITE_CLASS_ENCODER(nest_info_t)
+//WRITE_CLASS_ENCODER(nest_info_t)
 
 inline bool operator==(const nest_info_t &l, const nest_info_t &r) {
   return memcmp(&l, &r, sizeof(l)) == 0;
@@ -298,7 +298,7 @@ struct vinodeno_t {
     ::decode(snapid, p);
   }
 };
-WRITE_CLASS_ENCODER(vinodeno_t)
+//WRITE_CLASS_ENCODER(vinodeno_t)
 
 inline bool operator==(const vinodeno_t &l, const vinodeno_t &r) {
   return l.ino == r.ino && l.snapid == r.snapid;
@@ -342,7 +342,7 @@ struct quota_info_t
     return max_bytes || max_files;
   }
 };
-WRITE_CLASS_ENCODER(quota_info_t)
+//WRITE_CLASS_ENCODER(quota_info_t)
 
 inline bool operator==(const quota_info_t &l, const quota_info_t &r) {
   return memcmp(&l, &r, sizeof(l)) == 0;
@@ -398,7 +398,7 @@ inline void decode(client_writeable_range_t::byte_range_t& range, bufferlist::it
   ::decode(range.last, bl);
 }
 
-WRITE_CLASS_ENCODER(client_writeable_range_t)
+//WRITE_CLASS_ENCODER(client_writeable_range_t)
 
 std::ostream& operator<<(std::ostream& out, const client_writeable_range_t& r);
 
@@ -448,7 +448,7 @@ public:
   void encode(bufferlist &bl) const;
   void decode(bufferlist::iterator& bl);
 };
-WRITE_CLASS_ENCODER(inline_data_t)
+//WRITE_CLASS_ENCODER(inline_data_t)
 
 enum {
   DAMAGE_STATS,     // statistics (dirstat, size, etc)
@@ -1038,7 +1038,7 @@ struct fnode_t {
   static void generate_test_instances(list<fnode_t*>& ls);
   fnode_t() {}
 };
-WRITE_CLASS_ENCODER(fnode_t)
+//WRITE_CLASS_ENCODER(fnode_t)
 
 
 struct old_rstat_t {
@@ -1050,7 +1050,7 @@ struct old_rstat_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<old_rstat_t*>& ls);
 };
-WRITE_CLASS_ENCODER(old_rstat_t)
+//WRITE_CLASS_ENCODER(old_rstat_t)
 
 inline std::ostream& operator<<(std::ostream& out, const old_rstat_t& o) {
   return out << "old_rstat(first " << o.first << " " << o.rstat << " " << o.accounted_rstat << ")";
@@ -1085,7 +1085,7 @@ struct session_info_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<session_info_t*>& ls);
 };
-WRITE_CLASS_ENCODER_FEATURES(session_info_t)
+//WRITE_CLASS_ENCODER_FEATURES(session_info_t)
 
 
 // =======
@@ -1177,7 +1177,7 @@ struct string_snap_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<string_snap_t*>& ls);
 };
-WRITE_CLASS_ENCODER(string_snap_t)
+//WRITE_CLASS_ENCODER(string_snap_t)
 
 inline bool operator<(const string_snap_t& l, const string_snap_t& r) {
   int c = l.name.compare(r.name);
@@ -1205,7 +1205,7 @@ struct mds_table_pending_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<mds_table_pending_t*>& ls);
 };
-WRITE_CLASS_ENCODER(mds_table_pending_t)
+//WRITE_CLASS_ENCODER(mds_table_pending_t)
 
 
 // =========
@@ -1225,7 +1225,7 @@ struct metareqid_t {
     ::decode(tid, p);
   }
 };
-WRITE_CLASS_ENCODER(metareqid_t)
+//WRITE_CLASS_ENCODER(metareqid_t)
 
 inline std::ostream& operator<<(std::ostream& out, const metareqid_t& r) {
   return out << r.name << ":" << r.tid;
@@ -1289,7 +1289,7 @@ struct cap_reconnect_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<cap_reconnect_t*>& ls);
 };
-WRITE_CLASS_ENCODER(cap_reconnect_t)
+//WRITE_CLASS_ENCODER(cap_reconnect_t)
 
 
 // compat for pre-FLOCK feature
@@ -1337,7 +1337,7 @@ struct old_cap_reconnect_t {
     ::decode(capinfo, bl);
   }
 };
-WRITE_CLASS_ENCODER(old_cap_reconnect_t)
+//WRITE_CLASS_ENCODER(old_cap_reconnect_t)
 
 
 // ================================================================
@@ -1359,7 +1359,7 @@ struct dirfrag_t {
     ::decode(frag, bl);
   }
 };
-WRITE_CLASS_ENCODER(dirfrag_t)
+//WRITE_CLASS_ENCODER(dirfrag_t)
 
 
 inline std::ostream& operator<<(std::ostream& out, const dirfrag_t &df) {
@@ -1656,7 +1656,7 @@ inline bool operator==(const MDSCacheObjectInfo& l, const MDSCacheObjectInfo& r)
   else
     return l.dirfrag == r.dirfrag && l.dname == r.dname;
 }
-WRITE_CLASS_ENCODER(MDSCacheObjectInfo)
+//WRITE_CLASS_ENCODER(MDSCacheObjectInfo)
 
 
 // parse a map of keys/values.

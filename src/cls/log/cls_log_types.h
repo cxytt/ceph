@@ -39,7 +39,7 @@ struct cls_log_entry {
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(cls_log_entry)
+//WRITE_CLASS_ENCODER(cls_log_entry)
 
 struct cls_log_header {
   string max_marker;
@@ -59,7 +59,7 @@ struct cls_log_header {
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(cls_log_header)
+//WRITE_CLASS_ENCODER(cls_log_header)
 
 
 #endif

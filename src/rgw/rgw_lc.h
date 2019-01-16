@@ -89,7 +89,7 @@ public:
     return true;
   }
 };
-WRITE_CLASS_ENCODER(LCExpiration)
+//WRITE_CLASS_ENCODER(LCExpiration)
 
 class LCFilter
 {
@@ -128,7 +128,7 @@ class LCFilter
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(LCFilter);
+//WRITE_CLASS_ENCODER(LCFilter);
 
 
 
@@ -246,7 +246,7 @@ public:
    }
 
 };
-WRITE_CLASS_ENCODER(LCRule)
+//WRITE_CLASS_ENCODER(LCRule)
 
 struct lc_op
 {
@@ -315,7 +315,7 @@ public:
   }
 */
 };
-WRITE_CLASS_ENCODER(RGWLifecycleConfiguration)
+//WRITE_CLASS_ENCODER(RGWLifecycleConfiguration)
 
 class RGWLC {
   CephContext *cct;

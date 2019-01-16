@@ -51,7 +51,7 @@ public:
   void encode(bufferlist &bl) const;
   void decode(bufferlist::iterator &p);
 };
-WRITE_CLASS_ENCODER(PurgeItem)
+//WRITE_CLASS_ENCODER(PurgeItem)
 
 enum {
   l_pq_first = 3500,

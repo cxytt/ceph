@@ -23,7 +23,7 @@ struct cls_timeindex_add_op {
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(cls_timeindex_add_op)
+//WRITE_CLASS_ENCODER(cls_timeindex_add_op)
 
 struct cls_timeindex_list_op {
   utime_t from_time;
@@ -52,7 +52,7 @@ struct cls_timeindex_list_op {
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(cls_timeindex_list_op)
+//WRITE_CLASS_ENCODER(cls_timeindex_list_op)
 
 struct cls_timeindex_list_ret {
   list<cls_timeindex_entry> entries;
@@ -77,7 +77,7 @@ struct cls_timeindex_list_ret {
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(cls_timeindex_list_ret)
+//WRITE_CLASS_ENCODER(cls_timeindex_list_ret)
 
 
 /*
@@ -110,6 +110,6 @@ struct cls_timeindex_trim_op {
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(cls_timeindex_trim_op)
+//WRITE_CLASS_ENCODER(cls_timeindex_trim_op)
 
 #endif /* CEPH_CLS_TIMEINDEX_OPS_H */

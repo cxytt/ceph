@@ -170,7 +170,7 @@ struct MonCap {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<MonCap*>& ls);
 };
-WRITE_CLASS_ENCODER(MonCap)
+//WRITE_CLASS_ENCODER(MonCap)
 
 ostream& operator<<(ostream& out, const MonCap& cap);
 

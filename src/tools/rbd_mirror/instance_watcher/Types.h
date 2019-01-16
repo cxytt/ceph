@@ -163,7 +163,7 @@ struct NotifyMessage {
   static void generate_test_instances(std::list<NotifyMessage *> &o);
 };
 
-WRITE_CLASS_ENCODER(NotifyMessage);
+//WRITE_CLASS_ENCODER(NotifyMessage);
 
 std::ostream &operator<<(std::ostream &out, const NotifyOp &op);
 
@@ -185,7 +185,7 @@ struct NotifyAckPayload {
   void dump(Formatter *f) const;
 };
 
-WRITE_CLASS_ENCODER(NotifyAckPayload);
+//WRITE_CLASS_ENCODER(NotifyAckPayload);
 
 } // namespace instance_watcher
 } // namespace mirror

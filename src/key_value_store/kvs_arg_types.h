@@ -35,7 +35,7 @@ struct assert_size_args {
     DECODE_FINISH(p);
   }
 };
-WRITE_CLASS_ENCODER(assert_size_args)
+//WRITE_CLASS_ENCODER(assert_size_args)
 
 struct idata_from_key_args {
   string key;
@@ -57,7 +57,7 @@ struct idata_from_key_args {
     DECODE_FINISH(p);
   }
 };
-WRITE_CLASS_ENCODER(idata_from_key_args)
+//WRITE_CLASS_ENCODER(idata_from_key_args)
 
 struct idata_from_idata_args {
   index_data idata;
@@ -76,7 +76,7 @@ struct idata_from_idata_args {
     DECODE_FINISH(p);
   }
 };
-WRITE_CLASS_ENCODER(idata_from_idata_args)
+//WRITE_CLASS_ENCODER(idata_from_idata_args)
 
 struct omap_set_args {
   map<string, bufferlist> omap;
@@ -98,7 +98,7 @@ struct omap_set_args {
     DECODE_FINISH(p);
   }
 };
-WRITE_CLASS_ENCODER(omap_set_args)
+//WRITE_CLASS_ENCODER(omap_set_args)
 
 struct omap_rm_args {
   std::set<string> omap;
@@ -117,7 +117,7 @@ struct omap_rm_args {
     DECODE_FINISH(p);
   }
 };
-WRITE_CLASS_ENCODER(omap_rm_args)
+//WRITE_CLASS_ENCODER(omap_rm_args)
 
 struct rebalance_args {
   object_data odata;
@@ -139,7 +139,7 @@ struct rebalance_args {
     DECODE_FINISH(p);
   }
 };
-WRITE_CLASS_ENCODER(rebalance_args)
+//WRITE_CLASS_ENCODER(rebalance_args)
 
 
 #endif /* CLS_KVS_H_ */

@@ -23,7 +23,7 @@ struct cls_version_set_op {
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(cls_version_set_op)
+//WRITE_CLASS_ENCODER(cls_version_set_op)
 
 struct cls_version_inc_op {
   obj_version objv;
@@ -45,7 +45,7 @@ struct cls_version_inc_op {
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(cls_version_inc_op)
+//WRITE_CLASS_ENCODER(cls_version_inc_op)
 
 struct cls_version_check_op {
   obj_version objv;
@@ -67,7 +67,7 @@ struct cls_version_check_op {
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(cls_version_check_op)
+//WRITE_CLASS_ENCODER(cls_version_check_op)
 
 struct cls_version_read_ret {
   obj_version objv;
@@ -86,7 +86,7 @@ struct cls_version_read_ret {
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(cls_version_read_ret)
+//WRITE_CLASS_ENCODER(cls_version_read_ret)
 
 
 #endif

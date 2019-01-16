@@ -38,7 +38,7 @@ struct SnapInfo {
 
   boost::string_view get_long_name();
 };
-WRITE_CLASS_ENCODER(SnapInfo)
+//WRITE_CLASS_ENCODER(SnapInfo)
 
 ostream& operator<<(ostream& out, const SnapInfo &sn);
 
@@ -63,7 +63,7 @@ struct snaplink_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<snaplink_t*>& ls);
 };
-WRITE_CLASS_ENCODER(snaplink_t)
+//WRITE_CLASS_ENCODER(snaplink_t)
 
 ostream& operator<<(ostream& out, const snaplink_t &l);
 
@@ -89,6 +89,6 @@ struct sr_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<sr_t*>& ls);
 };
-WRITE_CLASS_ENCODER(sr_t)
+//WRITE_CLASS_ENCODER(sr_t)
 
 #endif

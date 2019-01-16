@@ -58,4 +58,4 @@ private:
   uint8_t type = (uint8_t)osd_metric::NONE;
   osd_metric_t value;
 };
-WRITE_CLASS_DENC(OSDHealthMetric)
+//WRITE_CLASS_DENC(OSDHealthMetric)

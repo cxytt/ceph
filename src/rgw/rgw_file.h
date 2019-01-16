@@ -140,7 +140,7 @@ namespace rgw {
     }
   }; /* fh_key */
 
-  WRITE_CLASS_ENCODER(fh_key);
+  //WRITE_CLASS_ENCODER(fh_key);
 
   inline bool operator<(const fh_key& lhs, const fh_key& rhs)
   {
@@ -746,7 +746,7 @@ namespace rgw {
 
   }; /* RGWFileHandle */
 
-  WRITE_CLASS_ENCODER(RGWFileHandle);
+  //WRITE_CLASS_ENCODER(RGWFileHandle);
 
   static inline RGWFileHandle* get_rgwfh(struct rgw_file_handle* fh) {
     return static_cast<RGWFileHandle*>(fh->fh_private);

@@ -147,7 +147,7 @@ struct MDSHealthMetric
   MDSHealthMetric(mds_metric_t type_, health_status_t sev_, boost::string_view message_)
     : type(type_), sev(sev_), message(message_) {}
 };
-WRITE_CLASS_ENCODER(MDSHealthMetric)
+//WRITE_CLASS_ENCODER(MDSHealthMetric)
 
 
 /**
@@ -175,7 +175,7 @@ struct MDSHealth
     return metrics == other.metrics;
   }
 };
-WRITE_CLASS_ENCODER(MDSHealth)
+//WRITE_CLASS_ENCODER(MDSHealth)
 
 
 class MMDSBeacon : public PaxosServiceMessage {

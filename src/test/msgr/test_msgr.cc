@@ -791,7 +791,7 @@ struct Payload {
     DENC_FINISH(p);
   }
 };
-WRITE_CLASS_DENC(Payload)
+//WRITE_CLASS_DENC(Payload)
 
 ostream& operator<<(ostream& out, const Payload &pl)
 {

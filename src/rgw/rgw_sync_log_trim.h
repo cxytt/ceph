@@ -104,6 +104,6 @@ struct BucketTrimStatus {
 
 } // namespace rgw
 
-WRITE_CLASS_ENCODER(rgw::BucketTrimStatus);
+//WRITE_CLASS_ENCODER(rgw::BucketTrimStatus);
 
 #endif // RGW_SYNC_LOG_TRIM_H

@@ -38,6 +38,6 @@ struct cls_timeindex_entry {
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(cls_timeindex_entry)
+//WRITE_CLASS_ENCODER(cls_timeindex_entry)
 
 #endif /* CEPH_CLS_TIMEINDEX_TYPES_H */

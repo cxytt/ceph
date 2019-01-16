@@ -35,7 +35,7 @@ struct kstore_cnode_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<kstore_cnode_t*>& o);
 };
-WRITE_CLASS_ENCODER(kstore_cnode_t)
+//WRITE_CLASS_ENCODER(kstore_cnode_t)
 
 /// onode: per-object metadata
 struct kstore_onode_t {
@@ -63,6 +63,6 @@ struct kstore_onode_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<kstore_onode_t*>& o);
 };
-WRITE_CLASS_ENCODER(kstore_onode_t)
+//WRITE_CLASS_ENCODER(kstore_onode_t)
 
 #endif

@@ -48,7 +48,7 @@ struct obj_version {
   void dump(Formatter *f) const;
   void decode_json(JSONObj *obj);
 };
-WRITE_CLASS_ENCODER(obj_version)
+//WRITE_CLASS_ENCODER(obj_version)
 
 enum VersionCond {
   VER_COND_NONE =      0,
@@ -83,7 +83,7 @@ struct obj_version_cond {
   }
 
 };
-WRITE_CLASS_ENCODER(obj_version_cond)
+//WRITE_CLASS_ENCODER(obj_version_cond)
 
 
 #endif

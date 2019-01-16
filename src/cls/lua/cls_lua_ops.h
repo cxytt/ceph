@@ -22,6 +22,6 @@ struct cls_lua_eval_op {
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(cls_lua_eval_op)
+//WRITE_CLASS_ENCODER(cls_lua_eval_op)
 
 #endif

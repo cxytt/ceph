@@ -55,6 +55,6 @@ public:
   void update_segment() override;
   void replay(MDSRank *mds) override;  
 };
-WRITE_CLASS_ENCODER_FEATURES(ESessions)
+//WRITE_CLASS_ENCODER_FEATURES(ESessions)
 
 #endif

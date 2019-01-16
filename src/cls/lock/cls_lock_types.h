@@ -87,7 +87,7 @@ namespace rados {
         void dump(Formatter *f) const;
         static void generate_test_instances(list<locker_id_t*>& o);
       };
-      WRITE_CLASS_ENCODER(rados::cls::lock::locker_id_t)
+      //WRITE_CLASS_ENCODER(rados::cls::lock::locker_id_t)
 
       struct locker_info_t
       {
@@ -116,7 +116,7 @@ namespace rados {
         void dump(Formatter *f) const;
         static void generate_test_instances(list<locker_info_t *>& o);
       };
-      WRITE_CLASS_ENCODER_FEATURES(rados::cls::lock::locker_info_t)
+      //WRITE_CLASS_ENCODER_FEATURES(rados::cls::lock::locker_info_t)
 
       struct lock_info_t {
         map<locker_id_t, locker_info_t> lockers; // map of lockers
@@ -146,12 +146,12 @@ namespace rados {
         void dump(Formatter *f) const;
         static void generate_test_instances(list<lock_info_t *>& o);
       };
-      WRITE_CLASS_ENCODER_FEATURES(rados::cls::lock::lock_info_t)
+      //WRITE_CLASS_ENCODER_FEATURES(rados::cls::lock::lock_info_t)
     }
   }
 }
-WRITE_CLASS_ENCODER_FEATURES(rados::cls::lock::locker_info_t)
-WRITE_CLASS_ENCODER(rados::cls::lock::locker_id_t)
-WRITE_CLASS_ENCODER_FEATURES(rados::cls::lock::lock_info_t)
+//WRITE_CLASS_ENCODER_FEATURES(rados::cls::lock::locker_info_t)
+//WRITE_CLASS_ENCODER(rados::cls::lock::locker_id_t)
+//WRITE_CLASS_ENCODER_FEATURES(rados::cls::lock::lock_info_t)
 
 #endif

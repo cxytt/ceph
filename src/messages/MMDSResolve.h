@@ -37,7 +37,7 @@ public:
       ::decode(committing, bl);
     }
   };
-  WRITE_CLASS_ENCODER(slave_request)
+  //WRITE_CLASS_ENCODER(slave_request)
 
   map<metareqid_t, slave_request> slave_requests;
 
@@ -90,5 +90,5 @@ inline ostream& operator<<(ostream& out, const MMDSResolve::slave_request&) {
     return out;
 }
 
-WRITE_CLASS_ENCODER(MMDSResolve::slave_request)
+//WRITE_CLASS_ENCODER(MMDSResolve::slave_request)
 #endif

@@ -44,7 +44,7 @@ struct RGWRedirectInfo
   void dump(Formatter *f) const;
   void decode_json(JSONObj *obj);
 };
-WRITE_CLASS_ENCODER(RGWRedirectInfo)
+//WRITE_CLASS_ENCODER(RGWRedirectInfo)
 
 
 struct RGWBWRedirectInfo
@@ -73,7 +73,7 @@ struct RGWBWRedirectInfo
   void decode_json(JSONObj *obj);
   void decode_xml(XMLObj *obj);
 };
-WRITE_CLASS_ENCODER(RGWBWRedirectInfo)
+//WRITE_CLASS_ENCODER(RGWBWRedirectInfo)
 
 struct RGWBWRoutingRuleCondition
 {
@@ -103,7 +103,7 @@ struct RGWBWRoutingRuleCondition
     return (uint16_t)error_code == http_error_code_returned_equals;
   }
 };
-WRITE_CLASS_ENCODER(RGWBWRoutingRuleCondition)
+//WRITE_CLASS_ENCODER(RGWBWRoutingRuleCondition)
 
 struct RGWBWRoutingRule
 {
@@ -141,7 +141,7 @@ struct RGWBWRoutingRule
                   std::string *redirect,
                   int *redirect_code);
 };
-WRITE_CLASS_ENCODER(RGWBWRoutingRule)
+//WRITE_CLASS_ENCODER(RGWBWRoutingRule)
 
 struct RGWBWRoutingRules
 {
@@ -168,7 +168,7 @@ struct RGWBWRoutingRules
                                           const int error_code,
                                           RGWBWRoutingRule **rule);
 };
-WRITE_CLASS_ENCODER(RGWBWRoutingRules)
+//WRITE_CLASS_ENCODER(RGWBWRoutingRules)
 
 struct RGWBucketWebsiteConf
 {
@@ -233,6 +233,6 @@ struct RGWBucketWebsiteConf
            ! listing_enabled;
   }
 };
-WRITE_CLASS_ENCODER(RGWBucketWebsiteConf)
+//WRITE_CLASS_ENCODER(RGWBucketWebsiteConf)
 
 #endif

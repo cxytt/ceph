@@ -771,7 +771,7 @@ class MonitorDBStore
 
 };
 
-WRITE_CLASS_ENCODER(MonitorDBStore::Op)
-WRITE_CLASS_ENCODER(MonitorDBStore::Transaction)
+//WRITE_CLASS_ENCODER(MonitorDBStore::Op)
+//WRITE_CLASS_ENCODER(MonitorDBStore::Transaction)
 
 #endif /* CEPH_MONITOR_DB_STORE_H */

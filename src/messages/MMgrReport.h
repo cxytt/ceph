@@ -68,7 +68,7 @@ public:
     DECODE_FINISH(p);
   }
 };
-WRITE_CLASS_ENCODER(PerfCounterType)
+//WRITE_CLASS_ENCODER(PerfCounterType)
 
 class MMgrReport : public Message
 {

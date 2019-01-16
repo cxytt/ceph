@@ -524,7 +524,7 @@ public:
   void dump(Formatter *f) const;
   static void generate_test_instances(std::list<bloom_filter*>& ls);
 };
-WRITE_CLASS_ENCODER(bloom_filter)
+//WRITE_CLASS_ENCODER(bloom_filter)
 
 
 class compressible_bloom_filter : public bloom_filter
@@ -621,7 +621,7 @@ public:
   void dump(Formatter *f) const;
   static void generate_test_instances(std::list<compressible_bloom_filter*>& ls);
 };
-WRITE_CLASS_ENCODER(compressible_bloom_filter)
+//WRITE_CLASS_ENCODER(compressible_bloom_filter)
 
 #endif
 

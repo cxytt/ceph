@@ -48,7 +48,7 @@ struct cls_lock_lock_op
   void dump(Formatter *f) const;
   static void generate_test_instances(list<cls_lock_lock_op*>& o);
 };
-WRITE_CLASS_ENCODER(cls_lock_lock_op)
+//WRITE_CLASS_ENCODER(cls_lock_lock_op)
 
 struct cls_lock_unlock_op
 {
@@ -72,7 +72,7 @@ struct cls_lock_unlock_op
   void dump(Formatter *f) const;
   static void generate_test_instances(list<cls_lock_unlock_op*>& o);
 };
-WRITE_CLASS_ENCODER(cls_lock_unlock_op)
+//WRITE_CLASS_ENCODER(cls_lock_unlock_op)
 
 struct cls_lock_break_op
 {
@@ -99,7 +99,7 @@ struct cls_lock_break_op
   void dump(Formatter *f) const;
   static void generate_test_instances(list<cls_lock_break_op*>& o);
 };
-WRITE_CLASS_ENCODER(cls_lock_break_op)
+//WRITE_CLASS_ENCODER(cls_lock_break_op)
 
 struct cls_lock_get_info_op
 {
@@ -120,7 +120,7 @@ struct cls_lock_get_info_op
   void dump(Formatter *f) const;
   static void generate_test_instances(list<cls_lock_get_info_op*>& o);
 };
-WRITE_CLASS_ENCODER(cls_lock_get_info_op)
+//WRITE_CLASS_ENCODER(cls_lock_get_info_op)
 
 struct cls_lock_get_info_reply
 {
@@ -150,7 +150,7 @@ struct cls_lock_get_info_reply
   void dump(Formatter *f) const;
   static void generate_test_instances(list<cls_lock_get_info_reply*>& o);
 };
-WRITE_CLASS_ENCODER_FEATURES(cls_lock_get_info_reply)
+//WRITE_CLASS_ENCODER_FEATURES(cls_lock_get_info_reply)
 
 struct cls_lock_list_locks_reply
 {
@@ -171,7 +171,7 @@ struct cls_lock_list_locks_reply
   void dump(Formatter *f) const;
   static void generate_test_instances(list<cls_lock_list_locks_reply*>& o);
 };
-WRITE_CLASS_ENCODER(cls_lock_list_locks_reply)
+//WRITE_CLASS_ENCODER(cls_lock_list_locks_reply)
 
 struct cls_lock_assert_op
 {
@@ -204,7 +204,7 @@ struct cls_lock_assert_op
   void dump(Formatter *f) const;
   static void generate_test_instances(list<cls_lock_assert_op*>& o);
 };
-WRITE_CLASS_ENCODER(cls_lock_assert_op)
+//WRITE_CLASS_ENCODER(cls_lock_assert_op)
 
 struct cls_lock_set_cookie_op
 {
@@ -240,6 +240,6 @@ struct cls_lock_set_cookie_op
   void dump(Formatter *f) const;
   static void generate_test_instances(list<cls_lock_set_cookie_op*>& o);
 };
-WRITE_CLASS_ENCODER(cls_lock_set_cookie_op)
+//WRITE_CLASS_ENCODER(cls_lock_set_cookie_op)
 
 #endif

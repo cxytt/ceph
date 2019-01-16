@@ -165,5 +165,5 @@ bool is_hinfo_key_string(const std::string &key);
 const std::string &get_hinfo_key();
 
 }
-WRITE_CLASS_ENCODER(ECUtil::HashInfo)
+//WRITE_CLASS_ENCODER(ECUtil::HashInfo)
 #endif

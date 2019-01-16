@@ -278,6 +278,6 @@ public:
 
 };
 
-WRITE_CLASS_ENCODER(MClientRequest::Release)
+//WRITE_CLASS_ENCODER(MClientRequest::Release)
 
 #endif

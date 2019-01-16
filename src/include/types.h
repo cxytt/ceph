@@ -293,7 +293,7 @@ struct client_t {
     ::decode(v, bl);
   }
 };
-WRITE_CLASS_ENCODER(client_t)
+//WRITE_CLASS_ENCODER(client_t)
 
 static inline bool operator==(const client_t& l, const client_t& r) { return l.v == r.v; }
 static inline bool operator!=(const client_t& l, const client_t& r) { return l.v != r.v; }
@@ -437,7 +437,7 @@ struct shard_id_t {
     ::decode(id, bl);
   }
 };
-WRITE_CLASS_ENCODER(shard_id_t)
+//WRITE_CLASS_ENCODER(shard_id_t)
 WRITE_EQ_OPERATORS_1(shard_id_t, id)
 WRITE_CMP_OPERATORS_1(shard_id_t, id)
 ostream &operator<<(ostream &lhs, const shard_id_t &rhs);
@@ -474,7 +474,7 @@ struct errorcode32_t {
     code = ceph_to_hostos_errno(code);
   }
 };
-WRITE_CLASS_ENCODER(errorcode32_t)
+//WRITE_CLASS_ENCODER(errorcode32_t)
 WRITE_EQ_OPERATORS_1(errorcode32_t, code)
 WRITE_CMP_OPERATORS_1(errorcode32_t, code)
 

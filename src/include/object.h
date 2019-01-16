@@ -52,7 +52,7 @@ struct object_t {
     ::decode(name, bl);
   }
 };
-WRITE_CLASS_ENCODER(object_t)
+//WRITE_CLASS_ENCODER(object_t)
 
 inline bool operator==(const object_t& l, const object_t& r) {
   return l.name == r.name;
@@ -172,7 +172,7 @@ struct sobject_t {
     ::decode(snap, bl);
   }
 };
-WRITE_CLASS_ENCODER(sobject_t)
+//WRITE_CLASS_ENCODER(sobject_t)
 
 inline bool operator==(const sobject_t &l, const sobject_t &r) {
   return l.oid == r.oid && l.snap == r.snap;

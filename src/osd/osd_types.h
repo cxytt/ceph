@@ -133,7 +133,7 @@ struct osd_reqid_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<osd_reqid_t*>& o);
 };
-WRITE_CLASS_DENC(osd_reqid_t)
+//WRITE_CLASS_DENC(osd_reqid_t)
 
 
 
@@ -157,7 +157,7 @@ struct pg_shard_t {
     }
   }
 };
-WRITE_CLASS_ENCODER(pg_shard_t)
+//WRITE_CLASS_ENCODER(pg_shard_t)
 WRITE_EQ_OPERATORS_2(pg_shard_t, osd, shard)
 WRITE_CMP_OPERATORS_2(pg_shard_t, osd, shard)
 ostream &operator<<(ostream &lhs, const pg_shard_t &rhs);
@@ -257,7 +257,7 @@ struct object_locator_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<object_locator_t*>& o);
 };
-WRITE_CLASS_ENCODER(object_locator_t)
+//WRITE_CLASS_ENCODER(object_locator_t)
 
 inline bool operator==(const object_locator_t& l, const object_locator_t& r) {
   return l.pool == r.pool && l.key == r.key && l.nspace == r.nspace && l.hash == r.hash;
@@ -311,7 +311,7 @@ public:
   void dump(Formatter *f) const;
   static void generate_test_instances(list<request_redirect_t*>& o);
 };
-WRITE_CLASS_ENCODER(request_redirect_t)
+//WRITE_CLASS_ENCODER(request_redirect_t)
 
 inline ostream& operator<<(ostream& out, const request_redirect_t& redir) {
   out << "object " << redir.redirect_object << ", locator{" << redir.redirect_locator << "}";
@@ -350,7 +350,7 @@ struct old_pg_t {
     ::decode_raw(v, bl);
   }
 };
-WRITE_CLASS_ENCODER(old_pg_t)
+//WRITE_CLASS_ENCODER(old_pg_t)
 
 // placement group id
 struct pg_t {
@@ -452,7 +452,7 @@ struct pg_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<pg_t*>& o);
 };
-WRITE_CLASS_ENCODER(pg_t)
+//WRITE_CLASS_ENCODER(pg_t)
 
 inline bool operator<(const pg_t& l, const pg_t& r) {
   return l.pool() < r.pool() ||
@@ -576,7 +576,7 @@ struct spg_t {
     return ps() % num_shards;
   }
 };
-WRITE_CLASS_ENCODER(spg_t)
+//WRITE_CLASS_ENCODER(spg_t)
 WRITE_EQ_OPERATORS_2(spg_t, pgid, shard)
 WRITE_CMP_OPERATORS_2(spg_t, pgid, shard)
 
@@ -744,7 +744,7 @@ public:
   static void generate_test_instances(list<coll_t*>& o);
 };
 
-WRITE_CLASS_ENCODER(coll_t)
+//WRITE_CLASS_ENCODER(coll_t)
 
 inline ostream& operator<<(ostream& out, const coll_t& c) {
   out << c.to_str();
@@ -839,7 +839,7 @@ public:
     decode(p);
   }
 };
-WRITE_CLASS_ENCODER(eversion_t)
+//WRITE_CLASS_ENCODER(eversion_t)
 
 inline bool operator==(const eversion_t& l, const eversion_t& r) {
   return (l.epoch == r.epoch) && (l.version == r.version);
@@ -894,7 +894,7 @@ struct objectstore_perf_stat_t {
   void decode(bufferlist::iterator &bl);
   static void generate_test_instances(std::list<objectstore_perf_stat_t*>& o);
 };
-WRITE_CLASS_ENCODER(objectstore_perf_stat_t)
+//WRITE_CLASS_ENCODER(objectstore_perf_stat_t)
 
 /** osd_stat
  * aggregate stats for an osd
@@ -942,7 +942,7 @@ struct osd_stat_t {
   void decode(bufferlist::iterator &bl);
   static void generate_test_instances(std::list<osd_stat_t*>& o);
 };
-WRITE_CLASS_ENCODER(osd_stat_t)
+//WRITE_CLASS_ENCODER(osd_stat_t)
 
 inline bool operator==(const osd_stat_t& l, const osd_stat_t& r) {
   return l.kb == r.kb &&
@@ -1026,7 +1026,7 @@ struct pool_snap_info_t {
   void decode(bufferlist::iterator& bl);
   static void generate_test_instances(list<pool_snap_info_t*>& o);
 };
-WRITE_CLASS_ENCODER_FEATURES(pool_snap_info_t)
+//WRITE_CLASS_ENCODER_FEATURES(pool_snap_info_t)
 
 inline ostream& operator<<(ostream& out, const pool_snap_info_t& si) {
   return out << si.snapid << '(' << si.name << ' ' << si.stamp << ')';
@@ -1116,7 +1116,7 @@ private:
 
   friend ostream& operator<<(ostream& out, const pool_opts_t& opts);
 };
-WRITE_CLASS_ENCODER(pool_opts_t)
+//WRITE_CLASS_ENCODER(pool_opts_t)
 
 /*
  * pg_pool
@@ -1607,7 +1607,7 @@ public:
 
   static void generate_test_instances(list<pg_pool_t*>& o);
 };
-WRITE_CLASS_ENCODER_FEATURES(pg_pool_t)
+//WRITE_CLASS_ENCODER_FEATURES(pg_pool_t)
 
 ostream& operator<<(ostream& out, const pg_pool_t& p);
 
@@ -1856,7 +1856,7 @@ struct object_stat_sum_t {
   void decode(bufferlist::iterator& bl);
   static void generate_test_instances(list<object_stat_sum_t*>& o);
 };
-WRITE_CLASS_ENCODER(object_stat_sum_t)
+//WRITE_CLASS_ENCODER(object_stat_sum_t)
 
 bool operator==(const object_stat_sum_t& l, const object_stat_sum_t& r);
 
@@ -1903,7 +1903,7 @@ struct object_stat_collection_t {
     sum.sub(o.sum);
   }
 };
-WRITE_CLASS_ENCODER(object_stat_collection_t)
+//WRITE_CLASS_ENCODER(object_stat_collection_t)
 
 inline bool operator==(const object_stat_collection_t& l,
 		       const object_stat_collection_t& r) {
@@ -2046,7 +2046,7 @@ struct pg_stat_t {
   void decode(bufferlist::iterator &bl);
   static void generate_test_instances(list<pg_stat_t*>& o);
 };
-WRITE_CLASS_ENCODER(pg_stat_t)
+//WRITE_CLASS_ENCODER(pg_stat_t)
 
 bool operator==(const pg_stat_t& l, const pg_stat_t& r);
 
@@ -2103,7 +2103,7 @@ struct pool_stat_t {
   void decode(bufferlist::iterator &bl);
   static void generate_test_instances(list<pool_stat_t*>& o);
 };
-WRITE_CLASS_ENCODER_FEATURES(pool_stat_t)
+//WRITE_CLASS_ENCODER_FEATURES(pool_stat_t)
 
 
 // -----------------------------------------
@@ -2136,7 +2136,7 @@ struct pg_hit_set_info_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<pg_hit_set_info_t*>& o);
 };
-WRITE_CLASS_ENCODER(pg_hit_set_info_t)
+//WRITE_CLASS_ENCODER(pg_hit_set_info_t)
 
 /**
  * pg_hit_set_history_t - information about a history of hitsets
@@ -2160,7 +2160,7 @@ struct pg_hit_set_history_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<pg_hit_set_history_t*>& o);
 };
-WRITE_CLASS_ENCODER(pg_hit_set_history_t)
+//WRITE_CLASS_ENCODER(pg_hit_set_history_t)
 
 
 // -----------------------------------------
@@ -2296,7 +2296,7 @@ struct pg_history_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<pg_history_t*>& o);
 };
-WRITE_CLASS_ENCODER(pg_history_t)
+//WRITE_CLASS_ENCODER(pg_history_t)
 
 inline ostream& operator<<(ostream& out, const pg_history_t& h) {
   return out << "ec=" << h.epoch_created << "/" << h.epoch_pool_created
@@ -2394,7 +2394,7 @@ struct pg_info_t {
   }
   static void generate_test_instances(list<pg_info_t*>& o);
 };
-WRITE_CLASS_ENCODER(pg_info_t)
+//WRITE_CLASS_ENCODER(pg_info_t)
 
 inline ostream& operator<<(ostream& out, const pg_info_t& pgi) 
 {
@@ -2564,7 +2564,7 @@ struct pg_fast_info_t {
     DECODE_FINISH(p);
   }
 };
-WRITE_CLASS_ENCODER(pg_fast_info_t)
+//WRITE_CLASS_ENCODER(pg_fast_info_t)
 
 
 struct pg_notify_t {
@@ -2592,7 +2592,7 @@ struct pg_notify_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<pg_notify_t*> &o);
 };
-WRITE_CLASS_ENCODER(pg_notify_t)
+//WRITE_CLASS_ENCODER(pg_notify_t)
 ostream &operator<<(ostream &lhs, const pg_notify_t &notify);
 
 
@@ -2923,7 +2923,7 @@ public:
     return PriorSet(*this, std::forward<Args>(args)...);
   }
 };
-WRITE_CLASS_ENCODER(PastIntervals)
+//WRITE_CLASS_ENCODER(PastIntervals)
 
 ostream& operator<<(ostream& out, const PastIntervals::pg_interval_t& i);
 ostream& operator<<(ostream& out, const PastIntervals &i);
@@ -3144,7 +3144,7 @@ struct pg_query_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<pg_query_t*>& o);
 };
-WRITE_CLASS_ENCODER_FEATURES(pg_query_t)
+//WRITE_CLASS_ENCODER_FEATURES(pg_query_t)
 
 inline ostream& operator<<(ostream& out, const pg_query_t& q) {
   out << "query(" << q.get_type_name() << " " << q.since;
@@ -3320,7 +3320,7 @@ public:
   void dump(Formatter *f) const;
   static void generate_test_instances(list<ObjectModDesc*>& o);
 };
-WRITE_CLASS_ENCODER(ObjectModDesc)
+//WRITE_CLASS_ENCODER(ObjectModDesc)
 
 
 /**
@@ -3455,7 +3455,7 @@ struct pg_log_entry_t {
   static void generate_test_instances(list<pg_log_entry_t*>& o);
 
 };
-WRITE_CLASS_ENCODER(pg_log_entry_t)
+//WRITE_CLASS_ENCODER(pg_log_entry_t)
 
 ostream& operator<<(ostream& out, const pg_log_entry_t& e);
 
@@ -3496,7 +3496,7 @@ struct pg_log_dup_t {
 
   friend std::ostream& operator<<(std::ostream& out, const pg_log_dup_t& e);
 };
-WRITE_CLASS_ENCODER(pg_log_dup_t)
+//WRITE_CLASS_ENCODER(pg_log_dup_t)
 
 std::ostream& operator<<(std::ostream& out, const pg_log_dup_t& e);
 
@@ -3689,7 +3689,7 @@ public:
   void dump(Formatter *f) const;
   static void generate_test_instances(list<pg_log_t*>& o);
 };
-WRITE_CLASS_ENCODER(pg_log_t)
+//WRITE_CLASS_ENCODER(pg_log_t)
 
 inline ostream& operator<<(ostream& out, const pg_log_t& log)
 {
@@ -3788,7 +3788,7 @@ struct pg_missing_item {
     return !(*this == rhs);
   }
 };
-WRITE_CLASS_ENCODER_FEATURES(pg_missing_item)
+//WRITE_CLASS_ENCODER_FEATURES(pg_missing_item)
 ostream& operator<<(ostream& out, const pg_missing_item &item);
 
 class pg_missing_const_i {
@@ -4242,7 +4242,7 @@ struct pg_nls_response_t {
   }
 };
 
-WRITE_CLASS_ENCODER(pg_nls_response_t)
+//WRITE_CLASS_ENCODER(pg_nls_response_t)
 
 // For backwards compatibility with older OSD requests
 struct pg_ls_response_t {
@@ -4282,7 +4282,7 @@ struct pg_ls_response_t {
   }
 };
 
-WRITE_CLASS_ENCODER(pg_ls_response_t)
+//WRITE_CLASS_ENCODER(pg_ls_response_t)
 
 /**
  * object_copy_cursor_t
@@ -4313,7 +4313,7 @@ struct object_copy_cursor_t {
   void decode(bufferlist::iterator &bl);
   void dump(Formatter *f) const;
 };
-WRITE_CLASS_ENCODER(object_copy_cursor_t)
+//WRITE_CLASS_ENCODER(object_copy_cursor_t)
 
 /**
  * object_copy_data_t
@@ -4367,7 +4367,7 @@ public:
   void decode(bufferlist::iterator& bl);
   void dump(Formatter *f) const;
 };
-WRITE_CLASS_ENCODER_FEATURES(object_copy_data_t)
+//WRITE_CLASS_ENCODER_FEATURES(object_copy_data_t)
 
 /**
  * pg creation info
@@ -4387,7 +4387,7 @@ struct pg_create_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<pg_create_t*>& o);
 };
-WRITE_CLASS_ENCODER(pg_create_t)
+//WRITE_CLASS_ENCODER(pg_create_t)
 
 // -----------------------------------------
 
@@ -4401,7 +4401,7 @@ struct osd_peer_stat_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<osd_peer_stat_t*>& o);
 };
-WRITE_CLASS_ENCODER(osd_peer_stat_t)
+//WRITE_CLASS_ENCODER(osd_peer_stat_t)
 
 ostream& operator<<(ostream& out, const osd_peer_stat_t &stat);
 
@@ -4481,7 +4481,7 @@ public:
   void dump(Formatter *f) const;
   static void generate_test_instances(list<OSDSuperblock*>& o);
 };
-WRITE_CLASS_ENCODER(OSDSuperblock)
+//WRITE_CLASS_ENCODER(OSDSuperblock)
 
 inline ostream& operator<<(ostream& out, const OSDSuperblock& sb)
 {
@@ -4562,7 +4562,7 @@ struct SnapSet {
   SnapSet get_filtered(const pg_pool_t &pinfo) const;
   void filter(const pg_pool_t &pinfo);
 };
-WRITE_CLASS_ENCODER(SnapSet)
+//WRITE_CLASS_ENCODER(SnapSet)
 
 ostream& operator<<(ostream& out, const SnapSet& cs);
 
@@ -4584,7 +4584,7 @@ struct watch_info_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<watch_info_t*>& o);
 };
-WRITE_CLASS_ENCODER_FEATURES(watch_info_t)
+//WRITE_CLASS_ENCODER_FEATURES(watch_info_t)
 
 static inline bool operator==(const watch_info_t& l, const watch_info_t& r) {
   return l.cookie == r.cookie && l.timeout_seconds == r.timeout_seconds
@@ -4649,7 +4649,7 @@ struct object_manifest_t {
   void dump(Formatter *f) const;
   friend ostream& operator<<(ostream& out, const object_info_t& oi);
 };
-WRITE_CLASS_ENCODER(object_manifest_t)
+//WRITE_CLASS_ENCODER(object_manifest_t)
 ostream& operator<<(ostream& out, const object_manifest_t& oi);
 
 struct object_info_t {
@@ -4822,7 +4822,7 @@ struct object_info_t {
     decode(bl);
   }
 };
-WRITE_CLASS_ENCODER_FEATURES(object_info_t)
+//WRITE_CLASS_ENCODER_FEATURES(object_info_t)
 
 ostream& operator<<(ostream& out, const object_info_t& oi);
 
@@ -4846,7 +4846,7 @@ struct ObjectRecoveryInfo {
   ostream &print(ostream &out) const;
   void dump(Formatter *f) const;
 };
-WRITE_CLASS_ENCODER_FEATURES(ObjectRecoveryInfo)
+//WRITE_CLASS_ENCODER_FEATURES(ObjectRecoveryInfo)
 ostream& operator<<(ostream& out, const ObjectRecoveryInfo &inf);
 
 struct ObjectRecoveryProgress {
@@ -4875,7 +4875,7 @@ struct ObjectRecoveryProgress {
   ostream &print(ostream &out) const;
   void dump(Formatter *f) const;
 };
-WRITE_CLASS_ENCODER(ObjectRecoveryProgress)
+//WRITE_CLASS_ENCODER(ObjectRecoveryProgress)
 ostream& operator<<(ostream& out, const ObjectRecoveryProgress &prog);
 
 struct PushReplyOp {
@@ -4889,7 +4889,7 @@ struct PushReplyOp {
 
   uint64_t cost(CephContext *cct) const;
 };
-WRITE_CLASS_ENCODER(PushReplyOp)
+//WRITE_CLASS_ENCODER(PushReplyOp)
 ostream& operator<<(ostream& out, const PushReplyOp &op);
 
 struct PullOp {
@@ -4906,7 +4906,7 @@ struct PullOp {
 
   uint64_t cost(CephContext *cct) const;
 };
-WRITE_CLASS_ENCODER_FEATURES(PullOp)
+//WRITE_CLASS_ENCODER_FEATURES(PullOp)
 ostream& operator<<(ostream& out, const PullOp &op);
 
 struct PushOp {
@@ -4930,7 +4930,7 @@ struct PushOp {
 
   uint64_t cost(CephContext *cct) const;
 };
-WRITE_CLASS_ENCODER_FEATURES(PushOp)
+//WRITE_CLASS_ENCODER_FEATURES(PushOp)
 ostream& operator<<(ostream& out, const PushOp &op);
 
 
@@ -4966,7 +4966,7 @@ struct ScrubMap {
     void dump(Formatter *f) const;
     static void generate_test_instances(list<object*>& o);
   };
-  WRITE_CLASS_ENCODER(object)
+  //WRITE_CLASS_ENCODER(object)
 
   map<hobject_t,object> objects;
   eversion_t valid_through;
@@ -4993,8 +4993,8 @@ struct ScrubMap {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<ScrubMap*>& o);
 };
-WRITE_CLASS_ENCODER(ScrubMap::object)
-WRITE_CLASS_ENCODER(ScrubMap)
+//WRITE_CLASS_ENCODER(ScrubMap::object)
+//WRITE_CLASS_ENCODER(ScrubMap)
 
 struct ScrubMapBuilder {
   bool deep = false;
@@ -5137,7 +5137,7 @@ struct watch_item_t {
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER_FEATURES(watch_item_t)
+//WRITE_CLASS_ENCODER_FEATURES(watch_item_t)
 
 struct obj_watch_item_t {
   hobject_t obj;
@@ -5194,7 +5194,7 @@ struct obj_list_watch_response_t {
     o.back()->entries.push_back(watch_item_t(entity_name_t(entity_name_t::TYPE_CLIENT, 2), 20, 60, ea));
   }
 };
-WRITE_CLASS_ENCODER_FEATURES(obj_list_watch_response_t)
+//WRITE_CLASS_ENCODER_FEATURES(obj_list_watch_response_t)
 
 struct clone_info {
   snapid_t cloneid;
@@ -5256,7 +5256,7 @@ struct clone_info {
     o.back()->size = 32768;
   }
 };
-WRITE_CLASS_ENCODER(clone_info)
+//WRITE_CLASS_ENCODER(clone_info)
 
 /**
  * obj list snaps response format
@@ -5310,7 +5310,7 @@ struct obj_list_snap_response_t {
   }
 };
 
-WRITE_CLASS_ENCODER(obj_list_snap_response_t)
+//WRITE_CLASS_ENCODER(obj_list_snap_response_t)
 
 // PromoteCounter
 

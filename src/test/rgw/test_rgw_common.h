@@ -106,7 +106,7 @@ struct old_rgw_bucket {
     return name.compare(b.name) < 0;
   }
 };
-WRITE_CLASS_ENCODER(old_rgw_bucket)
+//WRITE_CLASS_ENCODER(old_rgw_bucket)
 
 class old_rgw_obj {
   std::string orig_obj;
@@ -445,7 +445,7 @@ public:
     return (r < 0);
   }
 };
-WRITE_CLASS_ENCODER(old_rgw_obj)
+//WRITE_CLASS_ENCODER(old_rgw_obj)
 
 static inline void prepend_old_bucket_marker(const old_rgw_bucket& bucket, const string& orig_oid, string& oid)
 {

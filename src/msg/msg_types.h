@@ -118,7 +118,7 @@ public:
 
   static void generate_test_instances(list<entity_name_t*>& o);
 };
-WRITE_CLASS_DENC(entity_name_t)
+//WRITE_CLASS_DENC(entity_name_t)
 
 inline bool operator== (const entity_name_t& l, const entity_name_t& r) { 
   return (l.type() == r.type()) && (l.num() == r.num()); }
@@ -199,7 +199,7 @@ struct ceph_sockaddr_storage {
     *this = ss;
   }
 } __attribute__ ((__packed__));
-WRITE_CLASS_ENCODER(ceph_sockaddr_storage)
+//WRITE_CLASS_ENCODER(ceph_sockaddr_storage)
 
 struct entity_addr_t {
   typedef enum {
@@ -463,7 +463,7 @@ struct entity_addr_t {
 
   static void generate_test_instances(list<entity_addr_t*>& o);
 };
-WRITE_CLASS_ENCODER_FEATURES(entity_addr_t)
+//WRITE_CLASS_ENCODER_FEATURES(entity_addr_t)
 
 ostream& operator<<(ostream& out, const entity_addr_t &addr);
 
@@ -496,7 +496,7 @@ struct entity_addrvec_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<entity_addrvec_t*>& ls);
 };
-WRITE_CLASS_ENCODER_FEATURES(entity_addrvec_t);
+//WRITE_CLASS_ENCODER_FEATURES(entity_addrvec_t);
 
 /*
  * a particular entity instance
@@ -526,7 +526,7 @@ struct entity_inst_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<entity_inst_t*>& o);
 };
-WRITE_CLASS_ENCODER_FEATURES(entity_inst_t)
+//WRITE_CLASS_ENCODER_FEATURES(entity_inst_t)
 
 
 inline bool operator==(const entity_inst_t& a, const entity_inst_t& b) { 

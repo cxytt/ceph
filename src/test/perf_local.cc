@@ -203,7 +203,7 @@ struct DummyBlock {
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(DummyBlock)
+//WRITE_CLASS_ENCODER(DummyBlock)
 
 // Measure the cost of encoding and decoding a buffer, plus
 // allocating space for one chunk.

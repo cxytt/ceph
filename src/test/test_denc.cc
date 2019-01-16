@@ -128,7 +128,7 @@ struct denc_counter_t {
     ++counts.num_decode;
   }
 };
-WRITE_CLASS_DENC(denc_counter_t)
+//WRITE_CLASS_DENC(denc_counter_t)
 
 struct denc_counter_bounded_t {
   void bound_encode(size_t& p) const {
@@ -144,7 +144,7 @@ struct denc_counter_bounded_t {
     ++counts.num_decode;
   }
 };
-WRITE_CLASS_DENC_BOUNDED(denc_counter_bounded_t)
+//WRITE_CLASS_DENC_BOUNDED(denc_counter_bounded_t)
 
 TEST(denc, denc_counter)
 {
@@ -197,7 +197,7 @@ struct legacy_t {
     return l.a == r.a;
   }
 };
-WRITE_CLASS_ENCODER(legacy_t)
+//WRITE_CLASS_ENCODER(legacy_t)
 
 template<template<class> class C>
 void test_common_veclist(const char* c) {
@@ -346,7 +346,7 @@ struct foo_t {
     return l.a == r.a && l.b == r.b;
   }
 };
-WRITE_CLASS_DENC_BOUNDED(foo_t)
+//WRITE_CLASS_DENC_BOUNDED(foo_t)
 
 struct foo2_t {
   int32_t c = 0;
@@ -363,7 +363,7 @@ struct foo2_t {
     return l.c == r.c && l.d == r.d;
   }
 };
-WRITE_CLASS_DENC_BOUNDED(foo2_t)
+//WRITE_CLASS_DENC_BOUNDED(foo2_t)
 
 
 struct bar_t {
@@ -379,7 +379,7 @@ struct bar_t {
     return l.a == r.a && l.b == r.b;
   }
 };
-WRITE_CLASS_DENC_FEATURED_BOUNDED(bar_t)
+//WRITE_CLASS_DENC_FEATURED_BOUNDED(bar_t)
 
 TEST(denc, foo)
 {
@@ -598,7 +598,7 @@ struct Legacy {
   }
   static bufferlist encode_n(unsigned n, const vector<unsigned>& segments);
 };
-WRITE_CLASS_DENC(Legacy)
+//WRITE_CLASS_DENC(Legacy)
 unsigned Legacy::n_denc = 0;
 unsigned Legacy::n_decode = 0;
 

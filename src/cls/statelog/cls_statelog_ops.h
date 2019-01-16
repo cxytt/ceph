@@ -23,7 +23,7 @@ struct cls_statelog_add_op {
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(cls_statelog_add_op)
+//WRITE_CLASS_ENCODER(cls_statelog_add_op)
 
 struct cls_statelog_list_op {
   string object;
@@ -55,7 +55,7 @@ struct cls_statelog_list_op {
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(cls_statelog_list_op)
+//WRITE_CLASS_ENCODER(cls_statelog_list_op)
 
 struct cls_statelog_list_ret {
   list<cls_statelog_entry> entries;
@@ -80,7 +80,7 @@ struct cls_statelog_list_ret {
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(cls_statelog_list_ret)
+//WRITE_CLASS_ENCODER(cls_statelog_list_ret)
 
 
 /*
@@ -110,7 +110,7 @@ struct cls_statelog_remove_op {
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(cls_statelog_remove_op)
+//WRITE_CLASS_ENCODER(cls_statelog_remove_op)
 
 struct cls_statelog_check_state_op {
   string client_id;
@@ -138,6 +138,6 @@ struct cls_statelog_check_state_op {
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(cls_statelog_check_state_op)
+//WRITE_CLASS_ENCODER(cls_statelog_check_state_op)
 
 #endif

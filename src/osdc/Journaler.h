@@ -202,7 +202,7 @@ public:
       ls.back()->stream_format = JOURNAL_FORMAT_RESILIENT;
     }
   };
-  WRITE_CLASS_ENCODER(Header)
+  //WRITE_CLASS_ENCODER(Header)
 
   uint32_t get_stream_format() const {
     return stream_format;
@@ -535,6 +535,6 @@ public:
   uint64_t get_expire_pos() const { return expire_pos; }
   uint64_t get_trimmed_pos() const { return trimmed_pos; }
 };
-WRITE_CLASS_ENCODER(Journaler::Header)
+//WRITE_CLASS_ENCODER(Journaler::Header)
 
 #endif

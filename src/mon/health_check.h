@@ -57,7 +57,7 @@ struct health_check_t {
     ls.back()->detail = {"one", "two", "three"};
   }
 };
-WRITE_CLASS_DENC(health_check_t)
+//WRITE_CLASS_DENC(health_check_t)
 
 
 struct health_check_map_t {
@@ -212,4 +212,4 @@ struct health_check_map_t {
     return !(l == r);
   }
 };
-WRITE_CLASS_DENC(health_check_map_t)
+//WRITE_CLASS_DENC(health_check_map_t)

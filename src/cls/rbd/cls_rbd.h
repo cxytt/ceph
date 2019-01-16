@@ -55,7 +55,7 @@ struct cls_rbd_parent {
     o.push_back(t);
   }
 };
-WRITE_CLASS_ENCODER(cls_rbd_parent)
+//WRITE_CLASS_ENCODER(cls_rbd_parent)
 
 struct cls_rbd_snap {
   snapid_t id;
@@ -162,6 +162,6 @@ struct cls_rbd_snap {
     o.push_back(t);
   }
 };
-WRITE_CLASS_ENCODER(cls_rbd_snap)
+//WRITE_CLASS_ENCODER(cls_rbd_snap)
 
 #endif

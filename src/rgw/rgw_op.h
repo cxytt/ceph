@@ -936,7 +936,7 @@ struct rgw_slo_entry {
 
   void decode_json(JSONObj *obj);
 };
-WRITE_CLASS_ENCODER(rgw_slo_entry)
+//WRITE_CLASS_ENCODER(rgw_slo_entry)
 
 struct RGWSLOInfo {
   vector<rgw_slo_entry> entries;
@@ -965,7 +965,7 @@ struct RGWSLOInfo {
      DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(RGWSLOInfo)
+//WRITE_CLASS_ENCODER(RGWSLOInfo)
 
 class RGWPutObj : public RGWOp {
 

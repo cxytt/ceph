@@ -24,7 +24,7 @@ struct dirfrag_rollback {
   void encode(bufferlist& bl) const;
   void decode(bufferlist::iterator& bl);
 };
-WRITE_CLASS_ENCODER(dirfrag_rollback)
+//WRITE_CLASS_ENCODER(dirfrag_rollback)
 
 class EFragment : public LogEvent {
 public:
@@ -75,6 +75,6 @@ public:
   static void generate_test_instances(list<EFragment*>& ls);
   void replay(MDSRank *mds) override;
 };
-WRITE_CLASS_ENCODER_FEATURES(EFragment)
+//WRITE_CLASS_ENCODER_FEATURES(EFragment)
 
 #endif

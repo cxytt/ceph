@@ -117,7 +117,7 @@ public:
 
   void to_str(std::string& s) const;
 };
-WRITE_CLASS_ENCODER(CryptoKey)
+//WRITE_CLASS_ENCODER(CryptoKey)
 
 static inline ostream& operator<<(ostream& out, const CryptoKey& k)
 {

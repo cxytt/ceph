@@ -66,7 +66,7 @@ struct RGWOrphanSearchStage {
 
   void dump(Formatter *f) const;
 };
-WRITE_CLASS_ENCODER(RGWOrphanSearchStage)
+//WRITE_CLASS_ENCODER(RGWOrphanSearchStage)
   
 struct RGWOrphanSearchInfo {
   string job_name;
@@ -96,7 +96,7 @@ struct RGWOrphanSearchInfo {
 
   void dump(Formatter *f) const;
 };
-WRITE_CLASS_ENCODER(RGWOrphanSearchInfo)
+//WRITE_CLASS_ENCODER(RGWOrphanSearchInfo)
 
 struct RGWOrphanSearchState {
   RGWOrphanSearchInfo info;
@@ -120,7 +120,7 @@ struct RGWOrphanSearchState {
 
   void dump(Formatter *f) const;
 };
-WRITE_CLASS_ENCODER(RGWOrphanSearchState)
+//WRITE_CLASS_ENCODER(RGWOrphanSearchState)
 
 class RGWOrphanStore {
   RGWRados *store;

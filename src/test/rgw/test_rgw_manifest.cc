@@ -57,7 +57,7 @@ struct OldObjManifestPart {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<OldObjManifestPart*>& o);
 };
-WRITE_CLASS_ENCODER(OldObjManifestPart)
+//WRITE_CLASS_ENCODER(OldObjManifestPart)
 
 class OldObjManifest {
 protected:
@@ -103,7 +103,7 @@ public:
     return objs.empty();
   }
 };
-WRITE_CLASS_ENCODER(OldObjManifest)
+//WRITE_CLASS_ENCODER(OldObjManifest)
 
 void append_head(list<rgw_obj> *objs, rgw_obj& head)
 {

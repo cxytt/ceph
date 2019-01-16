@@ -314,7 +314,7 @@ public:
   friend bool operator!=(const hobject_t&, const hobject_t&);
   friend struct ghobject_t;
 };
-WRITE_CLASS_ENCODER(hobject_t)
+//WRITE_CLASS_ENCODER(hobject_t)
 
 namespace std {
   template<> struct hash<hobject_t> {
@@ -487,7 +487,7 @@ public:
   friend bool operator!=(const ghobject_t&, const ghobject_t&);
 
 };
-WRITE_CLASS_ENCODER(ghobject_t)
+//WRITE_CLASS_ENCODER(ghobject_t)
 
 namespace std {
   template<> struct hash<ghobject_t> {

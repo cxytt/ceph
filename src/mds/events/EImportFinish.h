@@ -48,6 +48,6 @@ class EImportFinish : public LogEvent {
   void replay(MDSRank *mds) override;
 
 };
-WRITE_CLASS_ENCODER_FEATURES(EImportFinish)
+//WRITE_CLASS_ENCODER_FEATURES(EImportFinish)
 
 #endif

@@ -86,7 +86,7 @@ public:
     return l.who == r.who && l.stamp == r.stamp && l.seq == r.seq;
   }
 };
-WRITE_CLASS_ENCODER_FEATURES(LogEntryKey)
+//WRITE_CLASS_ENCODER_FEATURES(LogEntryKey)
 
 namespace std {
   template<> struct hash<LogEntryKey> {
@@ -117,7 +117,7 @@ struct LogEntry {
   static void generate_test_instances(list<LogEntry*>& o);
   static clog_type str_to_level(std::string const &str);
 };
-WRITE_CLASS_ENCODER_FEATURES(LogEntry)
+//WRITE_CLASS_ENCODER_FEATURES(LogEntry)
 
 struct LogSummary {
   version_t version;
@@ -145,7 +145,7 @@ struct LogSummary {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<LogSummary*>& o);
 };
-WRITE_CLASS_ENCODER_FEATURES(LogSummary)
+//WRITE_CLASS_ENCODER_FEATURES(LogSummary)
 
 inline ostream& operator<<(ostream& out, const clog_type t)
 {

@@ -59,6 +59,6 @@ std::ostream &operator<<(std::ostream &os, const Entry &entry);
 
 using journal::operator<<;
 
-WRITE_CLASS_ENCODER(journal::Entry)
+//WRITE_CLASS_ENCODER(journal::Entry)
 
 #endif // CEPH_JOURNAL_ENTRY_H

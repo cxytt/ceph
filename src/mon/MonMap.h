@@ -58,7 +58,7 @@ struct mon_info_t {
   void decode(bufferlist::iterator& p);
   void print(ostream& out) const;
 };
-WRITE_CLASS_ENCODER_FEATURES(mon_info_t)
+//WRITE_CLASS_ENCODER_FEATURES(mon_info_t)
 
 inline ostream& operator<<(ostream& out, const mon_info_t& mon) {
   mon.print(out);
@@ -342,7 +342,7 @@ public:
 
   static void generate_test_instances(list<MonMap*>& o);
 };
-WRITE_CLASS_ENCODER_FEATURES(MonMap)
+//WRITE_CLASS_ENCODER_FEATURES(MonMap)
 
 inline ostream& operator<<(ostream &out, const MonMap &m) {
   m.print_summary(out);

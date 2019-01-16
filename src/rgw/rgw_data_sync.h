@@ -85,7 +85,7 @@ struct rgw_data_sync_info {
 
   rgw_data_sync_info() : state((int)StateInit), num_shards(0) {}
 };
-WRITE_CLASS_ENCODER(rgw_data_sync_info)
+//WRITE_CLASS_ENCODER(rgw_data_sync_info)
 
 struct rgw_data_sync_marker {
   enum SyncState {
@@ -161,7 +161,7 @@ struct rgw_data_sync_marker {
   }
   static void generate_test_instances(std::list<rgw_data_sync_marker*>& o);
 };
-WRITE_CLASS_ENCODER(rgw_data_sync_marker)
+//WRITE_CLASS_ENCODER(rgw_data_sync_marker)
 
 struct rgw_data_sync_status {
   rgw_data_sync_info sync_info;
@@ -193,7 +193,7 @@ struct rgw_data_sync_status {
   }
   static void generate_test_instances(std::list<rgw_data_sync_status*>& o);
 };
-WRITE_CLASS_ENCODER(rgw_data_sync_status)
+//WRITE_CLASS_ENCODER(rgw_data_sync_status)
 
 struct rgw_datalog_entry {
   string key;
@@ -386,7 +386,7 @@ struct rgw_bucket_shard_full_sync_marker {
   void dump(Formatter *f) const;
   void decode_json(JSONObj *obj);
 };
-WRITE_CLASS_ENCODER(rgw_bucket_shard_full_sync_marker)
+//WRITE_CLASS_ENCODER(rgw_bucket_shard_full_sync_marker)
 
 struct rgw_bucket_shard_inc_sync_marker {
   string position;
@@ -414,7 +414,7 @@ struct rgw_bucket_shard_inc_sync_marker {
     return (position < m.position);
   }
 };
-WRITE_CLASS_ENCODER(rgw_bucket_shard_inc_sync_marker)
+//WRITE_CLASS_ENCODER(rgw_bucket_shard_inc_sync_marker)
 
 struct rgw_bucket_shard_sync_info {
   enum SyncState {
@@ -453,7 +453,7 @@ struct rgw_bucket_shard_sync_info {
   rgw_bucket_shard_sync_info() : state((int)StateInit) {}
 
 };
-WRITE_CLASS_ENCODER(rgw_bucket_shard_sync_info)
+//WRITE_CLASS_ENCODER(rgw_bucket_shard_sync_info)
 
 struct rgw_bucket_index_marker_info {
   string bucket_ver;

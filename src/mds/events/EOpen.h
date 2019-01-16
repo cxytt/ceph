@@ -56,6 +56,6 @@ public:
   void update_segment() override;
   void replay(MDSRank *mds) override;
 };
-WRITE_CLASS_ENCODER_FEATURES(EOpen)
+//WRITE_CLASS_ENCODER_FEATURES(EOpen)
 
 #endif

@@ -35,7 +35,7 @@ struct inode_backpointer_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<inode_backpointer_t*>& ls);
 };
-WRITE_CLASS_ENCODER(inode_backpointer_t)
+//WRITE_CLASS_ENCODER(inode_backpointer_t)
 
 inline bool operator==(const inode_backpointer_t& l, const inode_backpointer_t& r) {
 	return l.dirino == r.dirino && l.version == r.version && l.dname == r.dname;
@@ -79,7 +79,7 @@ struct inode_backtrace_t {
   int compare(const inode_backtrace_t& other,
                bool *equivalent, bool *divergent) const;
 };
-WRITE_CLASS_ENCODER(inode_backtrace_t)
+//WRITE_CLASS_ENCODER(inode_backtrace_t)
 
 inline ostream& operator<<(ostream& out, const inode_backtrace_t& it) {
   return out << "(" << it.pool << ")" << it.ino << ":" << it.ancestors << "//" << it.old_pools;

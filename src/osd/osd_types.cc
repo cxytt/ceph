@@ -2997,7 +2997,7 @@ void PastIntervals::pg_interval_t::generate_test_instances(list<pg_interval_t*>&
   o.back()->maybe_went_rw = true;
 }
 
-WRITE_CLASS_ENCODER(PastIntervals::pg_interval_t)
+//WRITE_CLASS_ENCODER(PastIntervals::pg_interval_t)
 
 class pi_simple_rep : public PastIntervals::interval_rep {
   map<epoch_t, PastIntervals::pg_interval_t> interval_map;
@@ -3206,7 +3206,7 @@ ostream &operator<<(ostream &o, const compact_interval_t &rhs)
   return o << "([" << rhs.first << "," << rhs.last
 	   << "] acting " << rhs.acting << ")";
 }
-WRITE_CLASS_ENCODER(compact_interval_t)
+//WRITE_CLASS_ENCODER(compact_interval_t)
 
 class pi_compact_rep : public PastIntervals::interval_rep {
   epoch_t first = 0;
@@ -3352,7 +3352,7 @@ public:
   }
   virtual ~pi_compact_rep() override {}
 };
-WRITE_CLASS_ENCODER(pi_compact_rep)
+//WRITE_CLASS_ENCODER(pi_compact_rep)
 
 PastIntervals::PastIntervals(const PastIntervals &rhs)
   : past_intervals(rhs.past_intervals ?

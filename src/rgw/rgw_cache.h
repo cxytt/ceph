@@ -46,7 +46,7 @@ struct ObjectMetaInfo {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<ObjectMetaInfo*>& o);
 };
-WRITE_CLASS_ENCODER(ObjectMetaInfo)
+//WRITE_CLASS_ENCODER(ObjectMetaInfo)
 
 struct ObjectCacheInfo {
   int status = 0;
@@ -91,7 +91,7 @@ struct ObjectCacheInfo {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<ObjectCacheInfo*>& o);
 };
-WRITE_CLASS_ENCODER(ObjectCacheInfo)
+//WRITE_CLASS_ENCODER(ObjectCacheInfo)
 
 struct RGWCacheNotifyInfo {
   uint32_t op;
@@ -123,7 +123,7 @@ struct RGWCacheNotifyInfo {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<RGWCacheNotifyInfo*>& o);
 };
-WRITE_CLASS_ENCODER(RGWCacheNotifyInfo)
+//WRITE_CLASS_ENCODER(RGWCacheNotifyInfo)
 
 struct ObjectCacheEntry {
   ObjectCacheInfo info;

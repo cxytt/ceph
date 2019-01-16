@@ -122,5 +122,5 @@ struct creating_pgs_t {
     o.push_back(c);
   }
 };
-WRITE_CLASS_ENCODER(creating_pgs_t::create_info);
-WRITE_CLASS_ENCODER(creating_pgs_t);
+//WRITE_CLASS_ENCODER(creating_pgs_t::create_info);
+//WRITE_CLASS_ENCODER(creating_pgs_t);

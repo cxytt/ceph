@@ -110,6 +110,6 @@ class InoTable : public MDSTable {
     }
   }
 };
-WRITE_CLASS_ENCODER(InoTable)
+//WRITE_CLASS_ENCODER(InoTable)
 
 #endif

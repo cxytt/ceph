@@ -49,6 +49,6 @@ public:
   void replay(MDSRank *mds) override;
   EMetaBlob const *get_metablob() const {return &metablob;}
 };
-WRITE_CLASS_ENCODER_FEATURES(EUpdate)
+//WRITE_CLASS_ENCODER_FEATURES(EUpdate)
 
 #endif

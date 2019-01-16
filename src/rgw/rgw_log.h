@@ -113,7 +113,7 @@ struct rgw_log_entry {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<rgw_log_entry*>& o);
 };
-WRITE_CLASS_ENCODER(rgw_log_entry)
+//WRITE_CLASS_ENCODER(rgw_log_entry)
 
 class OpsLogSocket : public OutputDataSocket {
   Formatter *formatter;

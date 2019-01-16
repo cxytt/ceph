@@ -26,7 +26,7 @@ public:
   void dump(Formatter *f) const;
   static void generate_test_instances(list<bluefs_extent_t*>&);
 };
-WRITE_CLASS_DENC(bluefs_extent_t)
+//WRITE_CLASS_DENC(bluefs_extent_t)
 
 ostream& operator<<(ostream& out, const bluefs_extent_t& e);
 
@@ -109,7 +109,7 @@ struct bluefs_fnode_t {
   static void generate_test_instances(list<bluefs_fnode_t*>& ls);
 
 };
-WRITE_CLASS_DENC(bluefs_fnode_t)
+//WRITE_CLASS_DENC(bluefs_fnode_t)
 
 ostream& operator<<(ostream& out, const bluefs_fnode_t& file);
 
@@ -135,7 +135,7 @@ struct bluefs_super_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<bluefs_super_t*>& ls);
 };
-WRITE_CLASS_ENCODER(bluefs_super_t)
+//WRITE_CLASS_ENCODER(bluefs_super_t)
 
 ostream& operator<<(ostream&, const bluefs_super_t& s);
 
@@ -226,7 +226,7 @@ struct bluefs_transaction_t {
   void dump(Formatter *f) const;
   static void generate_test_instance(list<bluefs_transaction_t*>& ls);
 };
-WRITE_CLASS_ENCODER(bluefs_transaction_t)
+//WRITE_CLASS_ENCODER(bluefs_transaction_t)
 
 ostream& operator<<(ostream& out, const bluefs_transaction_t& t);
 

@@ -52,7 +52,7 @@ class ObjCeiling {
       DECODE_FINISH(p);
     }
 };
-WRITE_CLASS_ENCODER(ObjCeiling)
+//WRITE_CLASS_ENCODER(ObjCeiling)
 
 class AccumulateArgs
 {

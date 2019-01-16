@@ -1578,6 +1578,6 @@ public:
   static bool is_valid_crush_loc(CephContext *cct,
 				 const map<string,string>& loc);
 };
-WRITE_CLASS_ENCODER_FEATURES(CrushWrapper)
+//WRITE_CLASS_ENCODER_FEATURES(CrushWrapper)
 
 #endif

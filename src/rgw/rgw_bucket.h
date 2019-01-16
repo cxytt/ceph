@@ -158,7 +158,7 @@ public:
 
   size_t count() { return buckets.size(); }
 };
-WRITE_CLASS_ENCODER(RGWUserBuckets)
+//WRITE_CLASS_ENCODER(RGWUserBuckets)
 
 class RGWMetadataManager;
 
@@ -377,7 +377,7 @@ struct rgw_data_change {
   void dump(Formatter *f) const;
   void decode_json(JSONObj *obj);
 };
-WRITE_CLASS_ENCODER(rgw_data_change)
+//WRITE_CLASS_ENCODER(rgw_data_change)
 
 struct rgw_data_change_log_entry {
   string log_id;
@@ -403,7 +403,7 @@ struct rgw_data_change_log_entry {
   void dump(Formatter *f) const;
   void decode_json(JSONObj *obj);
 };
-WRITE_CLASS_ENCODER(rgw_data_change_log_entry)
+//WRITE_CLASS_ENCODER(rgw_data_change_log_entry)
 
 struct RGWDataChangesLogInfo {
   string marker;

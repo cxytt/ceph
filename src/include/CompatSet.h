@@ -250,7 +250,7 @@ struct CompatSet {
     o.back()->incompat.insert(Feature(3, "three"));
   }
 };
-WRITE_CLASS_ENCODER(CompatSet)
+//WRITE_CLASS_ENCODER(CompatSet)
 
 inline ostream& operator<<(ostream& out, const CompatSet::FeatureSet& fs)
 {

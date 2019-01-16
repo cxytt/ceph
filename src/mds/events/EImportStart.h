@@ -56,6 +56,6 @@ public:
   void replay(MDSRank *mds) override;
 
 };
-WRITE_CLASS_ENCODER_FEATURES(EImportStart)
+//WRITE_CLASS_ENCODER_FEATURES(EImportStart)
 
 #endif

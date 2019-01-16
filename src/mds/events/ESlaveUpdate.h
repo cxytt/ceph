@@ -38,7 +38,7 @@ struct link_rollback {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<link_rollback*>& ls);
 };
-WRITE_CLASS_ENCODER(link_rollback)
+//WRITE_CLASS_ENCODER(link_rollback)
 
 /*
  * this is only used on an empty dir with a dirfrag on a remote node.
@@ -58,7 +58,7 @@ struct rmdir_rollback {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<rmdir_rollback*>& ls);
 };
-WRITE_CLASS_ENCODER(rmdir_rollback)
+//WRITE_CLASS_ENCODER(rmdir_rollback)
 
 struct rename_rollback {
   struct drec {
@@ -89,8 +89,8 @@ struct rename_rollback {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<rename_rollback*>& ls);
 };
-WRITE_CLASS_ENCODER(rename_rollback::drec)
-WRITE_CLASS_ENCODER(rename_rollback)
+//WRITE_CLASS_ENCODER(rename_rollback::drec)
+//WRITE_CLASS_ENCODER(rename_rollback)
 
 
 class ESlaveUpdate : public LogEvent {
@@ -146,6 +146,6 @@ public:
 
   void replay(MDSRank *mds) override;
 };
-WRITE_CLASS_ENCODER_FEATURES(ESlaveUpdate)
+//WRITE_CLASS_ENCODER_FEATURES(ESlaveUpdate)
 
 #endif

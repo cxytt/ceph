@@ -73,7 +73,7 @@ public:
   fs_cluster_id_t fscid = FS_CLUSTER_ID_NONE;
   MDSMap mds_map;
 };
-WRITE_CLASS_ENCODER_FEATURES(Filesystem)
+//WRITE_CLASS_ENCODER_FEATURES(Filesystem)
 
 class FSMap {
 protected:
@@ -485,7 +485,7 @@ public:
   void dump(Formatter *f) const;
   static void generate_test_instances(list<FSMap*>& ls);
 };
-WRITE_CLASS_ENCODER_FEATURES(FSMap)
+//WRITE_CLASS_ENCODER_FEATURES(FSMap)
 
 inline ostream& operator<<(ostream& out, const FSMap& m) {
   m.print_summary(NULL, &out);

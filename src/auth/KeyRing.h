@@ -98,7 +98,7 @@ public:
   void encode_formatted(string label, Formatter *f, bufferlist& bl);
 };
 
-// don't use WRITE_CLASS_ENCODER macro because we don't have an encode
+// don't use //WRITE_CLASS_ENCODER macro because we don't have an encode
 // macro.  don't juse encode_plaintext in that case because it is not
 // wrappable; it assumes it gets the entire bufferlist.
 static inline void decode(KeyRing& kr, bufferlist::iterator& p) {

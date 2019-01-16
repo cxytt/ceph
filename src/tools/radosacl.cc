@@ -45,7 +45,7 @@ struct ACLID {
     iter.copy(ID_SIZE, (char *)id);
   }
 };
-WRITE_CLASS_ENCODER(ACLID)
+//WRITE_CLASS_ENCODER(ACLID)
 
 typedef __u32 ACLFlags;
 
@@ -75,7 +75,7 @@ public:
   int read_acl(ACLID& id, ACLFlags *flags);
   void set_acl(ACLID& id, ACLFlags flags);
 };
-WRITE_CLASS_ENCODER(ObjectACLs)
+//WRITE_CLASS_ENCODER(ObjectACLs)
 
 int ObjectACLs::read_acl(ACLID& id, ACLFlags *flags)
 {

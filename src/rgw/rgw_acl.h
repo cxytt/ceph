@@ -68,7 +68,7 @@ public:
   void dump(Formatter *f) const;
   static void generate_test_instances(list<ACLPermission*>& o);
 };
-WRITE_CLASS_ENCODER(ACLPermission)
+//WRITE_CLASS_ENCODER(ACLPermission)
 
 class ACLGranteeType
 {
@@ -94,7 +94,7 @@ public:
   void dump(Formatter *f) const;
   static void generate_test_instances(list<ACLGranteeType*>& o);
 };
-WRITE_CLASS_ENCODER(ACLGranteeType)
+//WRITE_CLASS_ENCODER(ACLGranteeType)
 
 class ACLGrantee
 {
@@ -204,7 +204,7 @@ public:
     permission.set_permissions(perm);
   }
 };
-WRITE_CLASS_ENCODER(ACLGrant)
+//WRITE_CLASS_ENCODER(ACLGrant)
 
 struct ACLReferer {
   std::string url_spec;
@@ -274,7 +274,7 @@ private:
     return url_sub.substr(0, pos);
   }
 };
-WRITE_CLASS_ENCODER(ACLReferer)
+//WRITE_CLASS_ENCODER(ACLReferer)
 
 namespace rgw {
 namespace auth {
@@ -357,7 +357,7 @@ public:
     add_grant(&grant);
   }
 };
-WRITE_CLASS_ENCODER(RGWAccessControlList)
+//WRITE_CLASS_ENCODER(RGWAccessControlList)
 
 class ACLOwner
 {
@@ -394,7 +394,7 @@ public:
   const rgw_user& get_id() const { return id; }
   string& get_display_name() { return display_name; }
 };
-WRITE_CLASS_ENCODER(ACLOwner)
+//WRITE_CLASS_ENCODER(ACLOwner)
 
 class RGWAccessControlPolicy
 {
@@ -461,6 +461,6 @@ public:
 
   virtual bool compare_group_name(string& id, ACLGroupTypeEnum group) { return false; }
 };
-WRITE_CLASS_ENCODER(RGWAccessControlPolicy)
+//WRITE_CLASS_ENCODER(RGWAccessControlPolicy)
 
 #endif

@@ -35,7 +35,7 @@ struct SnapRealmInfo {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<SnapRealmInfo*>& o);
 };
-WRITE_CLASS_ENCODER(SnapRealmInfo)
+//WRITE_CLASS_ENCODER(SnapRealmInfo)
 
 
 struct SnapContext {
@@ -64,7 +64,7 @@ struct SnapContext {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<SnapContext*>& o);
 };
-WRITE_CLASS_ENCODER(SnapContext)
+//WRITE_CLASS_ENCODER(SnapContext)
 
 inline ostream& operator<<(ostream& out, const SnapContext& snapc) {
   return out << snapc.seq << "=" << snapc.snaps;

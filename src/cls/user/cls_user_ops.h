@@ -32,7 +32,7 @@ struct cls_user_set_buckets_op {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<cls_user_set_buckets_op*>& ls);
 };
-WRITE_CLASS_ENCODER(cls_user_set_buckets_op)
+//WRITE_CLASS_ENCODER(cls_user_set_buckets_op)
 
 struct cls_user_remove_bucket_op {
   cls_user_bucket bucket;
@@ -54,7 +54,7 @@ struct cls_user_remove_bucket_op {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<cls_user_remove_bucket_op*>& ls);
 };
-WRITE_CLASS_ENCODER(cls_user_remove_bucket_op)
+//WRITE_CLASS_ENCODER(cls_user_remove_bucket_op)
 
 struct cls_user_list_buckets_op {
   string marker;
@@ -86,7 +86,7 @@ struct cls_user_list_buckets_op {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<cls_user_list_buckets_op*>& ls);
 };
-WRITE_CLASS_ENCODER(cls_user_list_buckets_op)
+//WRITE_CLASS_ENCODER(cls_user_list_buckets_op)
 
 struct cls_user_list_buckets_ret {
   list<cls_user_bucket_entry> entries;
@@ -114,7 +114,7 @@ struct cls_user_list_buckets_ret {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<cls_user_list_buckets_ret*>& ls);
 };
-WRITE_CLASS_ENCODER(cls_user_list_buckets_ret)
+//WRITE_CLASS_ENCODER(cls_user_list_buckets_ret)
 
 
 struct cls_user_get_header_op {
@@ -133,7 +133,7 @@ struct cls_user_get_header_op {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<cls_user_get_header_op*>& ls);
 };
-WRITE_CLASS_ENCODER(cls_user_get_header_op)
+//WRITE_CLASS_ENCODER(cls_user_get_header_op)
 
 struct cls_user_reset_stats_op {
   real_time time;
@@ -154,7 +154,7 @@ struct cls_user_reset_stats_op {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<cls_user_reset_stats_op*>& ls);
 };
-WRITE_CLASS_ENCODER(cls_user_reset_stats_op);
+//WRITE_CLASS_ENCODER(cls_user_reset_stats_op);
 
 struct cls_user_get_header_ret {
   cls_user_header header;
@@ -176,7 +176,7 @@ struct cls_user_get_header_ret {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<cls_user_get_header_ret*>& ls);
 };
-WRITE_CLASS_ENCODER(cls_user_get_header_ret)
+//WRITE_CLASS_ENCODER(cls_user_get_header_ret)
 
 struct cls_user_complete_stats_sync_op {
   real_time time;
@@ -198,7 +198,7 @@ struct cls_user_complete_stats_sync_op {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<cls_user_complete_stats_sync_op*>& ls);
 };
-WRITE_CLASS_ENCODER(cls_user_complete_stats_sync_op)
+//WRITE_CLASS_ENCODER(cls_user_complete_stats_sync_op)
 
 
 #endif

@@ -542,6 +542,6 @@ private:
     uint64_t seq);
 };
 
-WRITE_CLASS_ENCODER(FileJournal::header_t)
+//WRITE_CLASS_ENCODER(FileJournal::header_t)
 
 #endif

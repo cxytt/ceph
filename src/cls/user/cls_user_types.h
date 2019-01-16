@@ -92,7 +92,7 @@ struct cls_user_bucket {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<cls_user_bucket*>& ls);
 };
-WRITE_CLASS_ENCODER(cls_user_bucket)
+//WRITE_CLASS_ENCODER(cls_user_bucket)
 
 /*
  * this structure overrides RGWBucketEnt
@@ -156,7 +156,7 @@ struct cls_user_bucket_entry {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<cls_user_bucket_entry*>& ls);
 };
-WRITE_CLASS_ENCODER(cls_user_bucket_entry)
+//WRITE_CLASS_ENCODER(cls_user_bucket_entry)
 
 struct cls_user_stats {
   uint64_t total_entries;
@@ -186,7 +186,7 @@ struct cls_user_stats {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<cls_user_stats*>& ls);
 };
-WRITE_CLASS_ENCODER(cls_user_stats)
+//WRITE_CLASS_ENCODER(cls_user_stats)
 
 /*
  * this needs to be compatible with rgw_bucket, as it replaces it
@@ -214,7 +214,7 @@ struct cls_user_header {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<cls_user_header*>& ls);
 };
-WRITE_CLASS_ENCODER(cls_user_header)
+//WRITE_CLASS_ENCODER(cls_user_header)
 
 void cls_user_gen_test_bucket(cls_user_bucket *bucket, int i);
 void cls_user_gen_test_bucket_entry(cls_user_bucket_entry *entry, int i);

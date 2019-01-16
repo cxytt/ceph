@@ -33,7 +33,7 @@ struct cls_replica_log_delete_marker_op {
   static void generate_test_instances(std::list<cls_replica_log_delete_marker_op*>& ls);
 
 };
-WRITE_CLASS_ENCODER(cls_replica_log_delete_marker_op)
+//WRITE_CLASS_ENCODER(cls_replica_log_delete_marker_op)
 
 struct cls_replica_log_set_marker_op {
   cls_replica_log_progress_marker marker;
@@ -56,7 +56,7 @@ struct cls_replica_log_set_marker_op {
   void dump(Formatter *f) const;
   static void generate_test_instances(std::list<cls_replica_log_set_marker_op*>& ls);
 };
-WRITE_CLASS_ENCODER(cls_replica_log_set_marker_op)
+//WRITE_CLASS_ENCODER(cls_replica_log_set_marker_op)
 
 struct cls_replica_log_get_bounds_op {
   cls_replica_log_get_bounds_op() {}
@@ -74,7 +74,7 @@ struct cls_replica_log_get_bounds_op {
   void dump(Formatter *f) const;
   static void generate_test_instances(std::list<cls_replica_log_get_bounds_op*>& ls);
 };
-WRITE_CLASS_ENCODER(cls_replica_log_get_bounds_op)
+//WRITE_CLASS_ENCODER(cls_replica_log_get_bounds_op)
 
 struct cls_replica_log_get_bounds_ret {
   string position_marker; // oldest log listing position on the master
@@ -106,6 +106,6 @@ struct cls_replica_log_get_bounds_ret {
   void dump(Formatter *f) const;
   static void generate_test_instances(std::list<cls_replica_log_get_bounds_ret*>& ls);
 };
-WRITE_CLASS_ENCODER(cls_replica_log_get_bounds_ret)
+//WRITE_CLASS_ENCODER(cls_replica_log_get_bounds_ret)
 
 #endif /* CLS_REPLICA_LOG_OPS_H_ */

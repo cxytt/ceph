@@ -391,8 +391,8 @@ public:
     return 0;
   }
 };
-WRITE_CLASS_ENCODER(utime_t)
-WRITE_CLASS_DENC(utime_t)
+//WRITE_CLASS_ENCODER(utime_t)
+//WRITE_CLASS_DENC(utime_t)
 
 
 // arithmetic operators

@@ -573,8 +573,8 @@ private:
   };
   friend class RemoveOnDelete;
 };
-WRITE_CLASS_ENCODER(DBObjectMap::_Header)
-WRITE_CLASS_ENCODER(DBObjectMap::State)
+//WRITE_CLASS_ENCODER(DBObjectMap::_Header)
+//WRITE_CLASS_ENCODER(DBObjectMap::State)
 
 ostream& operator<<(ostream& out, const DBObjectMap::_Header& h);
 

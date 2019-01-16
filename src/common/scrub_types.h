@@ -16,7 +16,7 @@ struct object_id_wrapper : public librados::object_id_t {
   void decode(bufferlist::iterator& bl);
 };
 
-WRITE_CLASS_ENCODER(object_id_wrapper)
+//WRITE_CLASS_ENCODER(object_id_wrapper)
 
 inline void decode(librados::object_id_t& obj, bufferlist::iterator& bp) {
   reinterpret_cast<object_id_wrapper&>(obj).decode(bp);
@@ -27,7 +27,7 @@ struct osd_shard_wrapper : public librados::osd_shard_t {
   void decode(bufferlist::iterator& bp);
 };
 
-WRITE_CLASS_ENCODER(osd_shard_wrapper)
+//WRITE_CLASS_ENCODER(osd_shard_wrapper)
 
 namespace librados {
   inline void decode(librados::osd_shard_t& shard, bufferlist::iterator& bp) {
@@ -97,7 +97,7 @@ public:
   void decode(bufferlist::iterator& bp);
 };
 
-WRITE_CLASS_ENCODER(shard_info_wrapper)
+//WRITE_CLASS_ENCODER(shard_info_wrapper)
 
 namespace librados {
   inline void decode(librados::shard_info_t& shard,
@@ -144,7 +144,7 @@ struct inconsistent_obj_wrapper : librados::inconsistent_obj_t {
   void decode(bufferlist::iterator& bp);
 };
 
-WRITE_CLASS_ENCODER(inconsistent_obj_wrapper)
+//WRITE_CLASS_ENCODER(inconsistent_obj_wrapper)
 
 inline void decode(librados::inconsistent_obj_t& obj,
 		   bufferlist::iterator& bp) {
@@ -175,7 +175,7 @@ struct inconsistent_snapset_wrapper : public librados::inconsistent_snapset_t {
   void decode(bufferlist::iterator& bp);
 };
 
-WRITE_CLASS_ENCODER(inconsistent_snapset_wrapper)
+//WRITE_CLASS_ENCODER(inconsistent_snapset_wrapper)
 
 namespace librados {
   inline void decode(librados::inconsistent_snapset_t& snapset,
@@ -193,7 +193,7 @@ struct scrub_ls_arg_t {
   void decode(bufferlist::iterator& bl);
 };
 
-WRITE_CLASS_ENCODER(scrub_ls_arg_t);
+//WRITE_CLASS_ENCODER(scrub_ls_arg_t);
 
 struct scrub_ls_result_t {
   epoch_t interval;
@@ -202,6 +202,6 @@ struct scrub_ls_result_t {
   void decode(bufferlist::iterator& bl);
 };
 
-WRITE_CLASS_ENCODER(scrub_ls_result_t);
+//WRITE_CLASS_ENCODER(scrub_ls_result_t);
 
 #endif

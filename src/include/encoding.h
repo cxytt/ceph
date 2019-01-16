@@ -46,8 +46,8 @@ using namespace ceph;
  *
  * - The default encode() methods have a features argument with a default parameter
  *   (which goes to zero).
- * - Normal classes will use WRITE_CLASS_ENCODER, with that features=0 default.
- * - Classes that _require_ features will use WRITE_CLASS_ENCODER_FEATURES, which
+ * - Normal classes will use //WRITE_CLASS_ENCODER, with that features=0 default.
+ * - Classes that _require_ features will use //WRITE_CLASS_ENCODER_FEATURES, which
  *   does not define the default.  Any caller must explicitly pass it in.
  * - STL container macros have two encode variants: one with a features arg, and one
  *   without.

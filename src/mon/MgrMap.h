@@ -56,7 +56,7 @@ public:
     DECODE_FINISH(p);
   }
 };
-WRITE_CLASS_ENCODER(StandbyInfo)
+//WRITE_CLASS_ENCODER(StandbyInfo)
 
 class MgrMap
 {
@@ -236,7 +236,7 @@ public:
   }
 };
 
-WRITE_CLASS_ENCODER_FEATURES(MgrMap)
+//WRITE_CLASS_ENCODER_FEATURES(MgrMap)
 
 #endif
 

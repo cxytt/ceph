@@ -162,7 +162,7 @@ struct denc_traits {
     };
 
   - denc_traits<T> is normally declared via the WRITE_CLASS_DENC(type) macro,
-  which is used in place of the old-style WRITE_CLASS_ENCODER(type) macro.
+  which is used in place of the old-style //WRITE_CLASS_ENCODER(type) macro.
   There are _FEATURED and _BOUNDED variants.  The class traits simply call
   into class methods of the same name (see below).
 

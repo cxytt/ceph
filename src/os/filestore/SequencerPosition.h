@@ -46,7 +46,7 @@ struct SequencerPosition {
     o.push_back(new SequencerPosition(4, 5, 6));
   }
 };
-WRITE_CLASS_ENCODER(SequencerPosition)
+//WRITE_CLASS_ENCODER(SequencerPosition)
 
 inline ostream& operator<<(ostream& out, const SequencerPosition& t) {
   return out << t.seq << "." << t.trans << "." << t.op;

@@ -264,7 +264,7 @@ public:
 	   client_waiting_lock_counts.empty();
   }
 };
-WRITE_CLASS_ENCODER(ceph_lock_state_t)
+//WRITE_CLASS_ENCODER(ceph_lock_state_t)
 
 
 inline ostream& operator<<(ostream &out, const ceph_lock_state_t &l) {

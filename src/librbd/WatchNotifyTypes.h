@@ -22,7 +22,7 @@ namespace watch_notify {
 
 using librbd::watcher::ClientId;
 
-WRITE_CLASS_ENCODER(ClientId);
+//WRITE_CLASS_ENCODER(ClientId);
 
 struct AsyncRequestId {
   ClientId client_id;
@@ -364,8 +364,8 @@ std::ostream &operator<<(std::ostream &out,
 std::ostream &operator<<(std::ostream &out,
                          const librbd::watch_notify::AsyncRequestId &request);
 
-WRITE_CLASS_ENCODER(librbd::watch_notify::AsyncRequestId);
-WRITE_CLASS_ENCODER(librbd::watch_notify::NotifyMessage);
-WRITE_CLASS_ENCODER(librbd::watch_notify::ResponseMessage);
+//WRITE_CLASS_ENCODER(librbd::watch_notify::AsyncRequestId);
+//WRITE_CLASS_ENCODER(librbd::watch_notify::NotifyMessage);
+//WRITE_CLASS_ENCODER(librbd::watch_notify::ResponseMessage);
 
 #endif // LIBRBD_WATCH_NOTIFY_TYPES_H

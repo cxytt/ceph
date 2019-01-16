@@ -2053,8 +2053,8 @@ public:
     return false;
   }
 };
-WRITE_CLASS_ENCODER(ObjectStore::Transaction)
-WRITE_CLASS_ENCODER(ObjectStore::Transaction::TransactionData)
+//WRITE_CLASS_ENCODER(ObjectStore::Transaction)
+//WRITE_CLASS_ENCODER(ObjectStore::Transaction::TransactionData)
 
 static inline void intrusive_ptr_add_ref(ObjectStore::Sequencer_impl *s) {
   s->get();

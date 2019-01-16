@@ -34,6 +34,6 @@ class EResetJournal : public LogEvent {
 
   void replay(MDSRank *mds) override;
 };
-WRITE_CLASS_ENCODER_FEATURES(EResetJournal)
+//WRITE_CLASS_ENCODER_FEATURES(EResetJournal)
 
 #endif

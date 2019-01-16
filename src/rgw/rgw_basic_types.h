@@ -104,7 +104,7 @@ struct rgw_user {
     return (id < rhs.id);
   }
 };
-WRITE_CLASS_ENCODER(rgw_user)
+//WRITE_CLASS_ENCODER(rgw_user)
 
 // Represents an identity. This is more wide-ranging than a
 // 'User'. Its purposes is to be matched against by an

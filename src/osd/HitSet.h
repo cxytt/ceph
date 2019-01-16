@@ -166,8 +166,8 @@ public:
 private:
   void reset_to_type(impl_type_t type);
 };
-WRITE_CLASS_ENCODER(HitSet)
-WRITE_CLASS_ENCODER(HitSet::Params)
+//WRITE_CLASS_ENCODER(HitSet)
+//WRITE_CLASS_ENCODER(HitSet::Params)
 
 typedef boost::shared_ptr<HitSet> HitSetRef;
 
@@ -242,7 +242,7 @@ public:
     o.back()->insert(hobject_t("qwer", "", CEPH_NOSNAP, 456, 1, ""));
   }
 };
-WRITE_CLASS_ENCODER(ExplicitHashHitSet)
+//WRITE_CLASS_ENCODER(ExplicitHashHitSet)
 
 /**
  * explicitly enumerate objects in the set
@@ -313,7 +313,7 @@ public:
     o.back()->insert(hobject_t("qwer", "", CEPH_NOSNAP, 456, 1, ""));
   }
 };
-WRITE_CLASS_ENCODER(ExplicitObjectHitSet)
+//WRITE_CLASS_ENCODER(ExplicitObjectHitSet)
 
 /**
  * use a bloom_filter to track hits to the set
@@ -448,6 +448,6 @@ public:
     o.back()->insert(hobject_t("qwer", "", CEPH_NOSNAP, 456, 1, ""));
   }
 };
-WRITE_CLASS_ENCODER(BloomHitSet)
+//WRITE_CLASS_ENCODER(BloomHitSet)
 
 #endif

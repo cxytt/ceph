@@ -77,7 +77,7 @@ struct MirrorPeer {
 std::ostream& operator<<(std::ostream& os, const MirrorMode& mirror_mode);
 std::ostream& operator<<(std::ostream& os, const MirrorPeer& peer);
 
-WRITE_CLASS_ENCODER(MirrorPeer);
+//WRITE_CLASS_ENCODER(MirrorPeer);
 
 enum MirrorImageState {
   MIRROR_IMAGE_STATE_DISABLING = 0,
@@ -106,7 +106,7 @@ struct MirrorImage {
 std::ostream& operator<<(std::ostream& os, const MirrorImageState& mirror_state);
 std::ostream& operator<<(std::ostream& os, const MirrorImage& mirror_image);
 
-WRITE_CLASS_ENCODER(MirrorImage);
+//WRITE_CLASS_ENCODER(MirrorImage);
 
 enum MirrorImageStatusState {
   MIRROR_IMAGE_STATUS_STATE_UNKNOWN         = 0,
@@ -156,7 +156,7 @@ struct MirrorImageStatus {
 std::ostream& operator<<(std::ostream& os, const MirrorImageStatus& status);
 std::ostream& operator<<(std::ostream& os, const MirrorImageStatusState& state);
 
-WRITE_CLASS_ENCODER(MirrorImageStatus);
+//WRITE_CLASS_ENCODER(MirrorImageStatus);
 
 struct GroupImageSpec {
   GroupImageSpec() {}
@@ -177,7 +177,7 @@ struct GroupImageSpec {
 
 };
 
-WRITE_CLASS_ENCODER(GroupImageSpec);
+//WRITE_CLASS_ENCODER(GroupImageSpec);
 
 struct GroupImageStatus {
   GroupImageStatus() {}
@@ -200,7 +200,7 @@ struct GroupImageStatus {
   std::string state_to_string() const;
 };
 
-WRITE_CLASS_ENCODER(GroupImageStatus);
+//WRITE_CLASS_ENCODER(GroupImageStatus);
 
 struct GroupSpec {
   GroupSpec() {}
@@ -216,7 +216,7 @@ struct GroupSpec {
   bool is_valid() const;
 };
 
-WRITE_CLASS_ENCODER(GroupSpec);
+//WRITE_CLASS_ENCODER(GroupSpec);
 
 enum SnapshotNamespaceType {
   SNAPSHOT_NAMESPACE_TYPE_USER = 0
@@ -285,7 +285,7 @@ struct SnapshotNamespaceOnDisk {
     return snapshot_namespace == gsn.snapshot_namespace;
   }
 };
-WRITE_CLASS_ENCODER(SnapshotNamespaceOnDisk);
+//WRITE_CLASS_ENCODER(SnapshotNamespaceOnDisk);
 
 enum TrashImageSource {
   TRASH_IMAGE_SOURCE_USER = 0,
@@ -321,7 +321,7 @@ struct TrashImageSpec {
   void decode(bufferlist::iterator& it);
   void dump(Formatter *f) const;
 };
-WRITE_CLASS_ENCODER(TrashImageSpec);
+//WRITE_CLASS_ENCODER(TrashImageSpec);
 
 } // namespace rbd
 } // namespace cls

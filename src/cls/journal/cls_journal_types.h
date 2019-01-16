@@ -134,10 +134,10 @@ struct Tag {
   static void generate_test_instances(std::list<Tag *> &o);
 };
 
-WRITE_CLASS_ENCODER(ObjectPosition);
-WRITE_CLASS_ENCODER(ObjectSetPosition);
-WRITE_CLASS_ENCODER(Client);
-WRITE_CLASS_ENCODER(Tag);
+//WRITE_CLASS_ENCODER(ObjectPosition);
+//WRITE_CLASS_ENCODER(ObjectSetPosition);
+//WRITE_CLASS_ENCODER(Client);
+//WRITE_CLASS_ENCODER(Tag);
 
 std::ostream &operator<<(std::ostream &os, const ClientState &state);
 std::ostream &operator<<(std::ostream &os,

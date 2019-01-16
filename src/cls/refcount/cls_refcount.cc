@@ -36,7 +36,7 @@ struct obj_refcount {
     DECODE_FINISH(bl);
   }
 };
-WRITE_CLASS_ENCODER(obj_refcount)
+//WRITE_CLASS_ENCODER(obj_refcount)
 
 static string wildcard_tag;
 

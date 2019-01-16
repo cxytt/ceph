@@ -55,8 +55,8 @@ public:
 
   static void generate_test_instances(list<FSMapUser*>& ls);
 };
-WRITE_CLASS_ENCODER_FEATURES(FSMapUser::fs_info_t)
-WRITE_CLASS_ENCODER_FEATURES(FSMapUser)
+//WRITE_CLASS_ENCODER_FEATURES(FSMapUser::fs_info_t)
+//WRITE_CLASS_ENCODER_FEATURES(FSMapUser)
 
 inline ostream& operator<<(ostream& out, FSMapUser& m) {
   m.print_summary(NULL, &out);

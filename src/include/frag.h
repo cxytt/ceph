@@ -514,7 +514,7 @@ public:
     f->close_section(); // splits
   }
 };
-WRITE_CLASS_ENCODER(fragtree_t)
+//WRITE_CLASS_ENCODER(fragtree_t)
 
 inline bool operator==(const fragtree_t& l, const fragtree_t& r) {
   return l._splits == r._splits;

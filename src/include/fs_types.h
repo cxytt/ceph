@@ -25,7 +25,7 @@ struct inodeno_t {
     ::decode(val, p);
   }
 } __attribute__ ((__may_alias__));
-WRITE_CLASS_ENCODER(inodeno_t)
+//WRITE_CLASS_ENCODER(inodeno_t)
 
 template<>
 struct denc_traits<inodeno_t> {
@@ -115,7 +115,7 @@ struct file_layout_t {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<file_layout_t*>& o);
 };
-WRITE_CLASS_ENCODER_FEATURES(file_layout_t)
+//WRITE_CLASS_ENCODER_FEATURES(file_layout_t)
 
 WRITE_EQ_OPERATORS_5(file_layout_t, stripe_unit, stripe_count, object_size, pool_id, pool_ns);
 

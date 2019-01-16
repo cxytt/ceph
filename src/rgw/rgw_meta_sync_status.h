@@ -43,7 +43,7 @@ struct rgw_meta_sync_info {
 
   rgw_meta_sync_info() : state((int)StateInit), num_shards(0) {}
 };
-WRITE_CLASS_ENCODER(rgw_meta_sync_info)
+//WRITE_CLASS_ENCODER(rgw_meta_sync_info)
 
 struct rgw_meta_sync_marker {
   enum SyncState {
@@ -90,7 +90,7 @@ struct rgw_meta_sync_marker {
   void dump(Formatter *f) const;
   static void generate_test_instances(std::list<rgw_meta_sync_marker*>& ls);
 };
-WRITE_CLASS_ENCODER(rgw_meta_sync_marker)
+//WRITE_CLASS_ENCODER(rgw_meta_sync_marker)
 
 struct rgw_meta_sync_status {
   rgw_meta_sync_info sync_info;
@@ -116,6 +116,6 @@ struct rgw_meta_sync_status {
   void decode_json(JSONObj *obj);
   static void generate_test_instances(std::list<rgw_meta_sync_status*>& ls);
 };
-WRITE_CLASS_ENCODER(rgw_meta_sync_status)
+//WRITE_CLASS_ENCODER(rgw_meta_sync_status)
 
 #endif

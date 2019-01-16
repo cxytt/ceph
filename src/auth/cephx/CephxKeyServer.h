@@ -178,8 +178,8 @@ struct KeyServerData {
   }
 
 };
-WRITE_CLASS_ENCODER(KeyServerData)
-WRITE_CLASS_ENCODER(KeyServerData::Incremental)
+//WRITE_CLASS_ENCODER(KeyServerData)
+//WRITE_CLASS_ENCODER(KeyServerData::Incremental)
 
 
 
@@ -299,7 +299,7 @@ public:
   map<EntityName, EntityAuth>::iterator secrets_end()
   { return data.secrets_end(); }
 };
-WRITE_CLASS_ENCODER(KeyServer)
+//WRITE_CLASS_ENCODER(KeyServer)
 
 
 #endif

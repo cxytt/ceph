@@ -86,7 +86,7 @@ private:
   ECSubWrite(ECSubWrite& other);
   const ECSubWrite& operator=(const ECSubWrite& other);
 };
-WRITE_CLASS_ENCODER(ECSubWrite)
+//WRITE_CLASS_ENCODER(ECSubWrite)
 
 struct ECSubWriteReply {
   pg_shard_t from;
@@ -100,7 +100,7 @@ struct ECSubWriteReply {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<ECSubWriteReply*>& o);
 };
-WRITE_CLASS_ENCODER(ECSubWriteReply)
+//WRITE_CLASS_ENCODER(ECSubWriteReply)
 
 struct ECSubRead {
   pg_shard_t from;
@@ -112,7 +112,7 @@ struct ECSubRead {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<ECSubRead*>& o);
 };
-WRITE_CLASS_ENCODER_FEATURES(ECSubRead)
+//WRITE_CLASS_ENCODER_FEATURES(ECSubRead)
 
 struct ECSubReadReply {
   pg_shard_t from;
@@ -125,7 +125,7 @@ struct ECSubReadReply {
   void dump(Formatter *f) const;
   static void generate_test_instances(list<ECSubReadReply*>& o);
 };
-WRITE_CLASS_ENCODER(ECSubReadReply)
+//WRITE_CLASS_ENCODER(ECSubReadReply)
 
 std::ostream &operator<<(
   std::ostream &lhs, const ECSubWrite &rhs);

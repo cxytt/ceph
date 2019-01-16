@@ -123,7 +123,7 @@ void TrimCounters::BucketCounter::decode(bufferlist::iterator& p)
   ::decode(bucket, p);
   ::decode(count, p);
 }
-WRITE_CLASS_ENCODER(TrimCounters::BucketCounter);
+//WRITE_CLASS_ENCODER(TrimCounters::BucketCounter);
 
 void TrimCounters::Request::encode(bufferlist& bl) const
 {
@@ -137,7 +137,7 @@ void TrimCounters::Request::decode(bufferlist::iterator& p)
   ::decode(max_buckets, p);
   DECODE_FINISH(p);
 }
-WRITE_CLASS_ENCODER(TrimCounters::Request);
+//WRITE_CLASS_ENCODER(TrimCounters::Request);
 
 void TrimCounters::Response::encode(bufferlist& bl) const
 {
@@ -151,7 +151,7 @@ void TrimCounters::Response::decode(bufferlist::iterator& p)
   ::decode(bucket_counters, p);
   DECODE_FINISH(p);
 }
-WRITE_CLASS_ENCODER(TrimCounters::Response);
+//WRITE_CLASS_ENCODER(TrimCounters::Response);
 
 void TrimCounters::Handler::handle(bufferlist::iterator& input,
                                    bufferlist& output)
@@ -200,7 +200,7 @@ void TrimComplete::Request::decode(bufferlist::iterator& p)
   DECODE_START(1, p);
   DECODE_FINISH(p);
 }
-WRITE_CLASS_ENCODER(TrimComplete::Request);
+//WRITE_CLASS_ENCODER(TrimComplete::Request);
 
 void TrimComplete::Response::encode(bufferlist& bl) const
 {
@@ -212,7 +212,7 @@ void TrimComplete::Response::decode(bufferlist::iterator& p)
   DECODE_START(1, p);
   DECODE_FINISH(p);
 }
-WRITE_CLASS_ENCODER(TrimComplete::Response);
+//WRITE_CLASS_ENCODER(TrimComplete::Response);
 
 void TrimComplete::Handler::handle(bufferlist::iterator& input,
                                    bufferlist& output)

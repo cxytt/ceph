@@ -69,6 +69,6 @@ class ESession : public LogEvent {
   void replay(MDSRank *mds) override;
   entity_inst_t get_client_inst() const {return client_inst;}
 };
-WRITE_CLASS_ENCODER_FEATURES(ESession)
+//WRITE_CLASS_ENCODER_FEATURES(ESession)
 
 #endif

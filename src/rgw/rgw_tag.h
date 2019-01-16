@@ -35,6 +35,6 @@ class RGWObjTags
   int set_from_string(const std::string& input);
   const tag_map_t& get_tags() const {return tag_map;}
 };
-WRITE_CLASS_ENCODER(RGWObjTags)
+//WRITE_CLASS_ENCODER(RGWObjTags)
 
 #endif /* RGW_TAG_H */

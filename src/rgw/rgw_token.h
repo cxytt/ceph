@@ -151,7 +151,7 @@ namespace rgw {
 
     virtual ~RGWToken() {};
   };
-  WRITE_CLASS_ENCODER(RGWToken)
+  //WRITE_CLASS_ENCODER(RGWToken)
 
   inline ostream& operator<<(ostream& os, const RGWToken& token)
   {

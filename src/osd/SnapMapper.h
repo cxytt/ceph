@@ -231,6 +231,6 @@ public:
     std::set<snapid_t> *snaps ///< [out] snaps
     ); ///< @return error, -ENOENT if oid is not recorded
 };
-WRITE_CLASS_ENCODER(SnapMapper::object_snaps)
+//WRITE_CLASS_ENCODER(SnapMapper::object_snaps)
 
 #endif

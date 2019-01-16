@@ -43,6 +43,6 @@ public:
 
   void replay(MDSRank *mds) override;
 };
-WRITE_CLASS_ENCODER_FEATURES(ESubtreeMap)
+//WRITE_CLASS_ENCODER_FEATURES(ESubtreeMap)
 
 #endif

@@ -356,10 +356,10 @@ private:
   unsigned state;
 };
 
-WRITE_CLASS_ENCODER(Capability::Export)
-WRITE_CLASS_ENCODER(Capability::Import)
-WRITE_CLASS_ENCODER(Capability::revoke_info)
-WRITE_CLASS_ENCODER(Capability)
+//WRITE_CLASS_ENCODER(Capability::Export)
+//WRITE_CLASS_ENCODER(Capability::Import)
+//WRITE_CLASS_ENCODER(Capability::revoke_info)
+//WRITE_CLASS_ENCODER(Capability)
 
 
 

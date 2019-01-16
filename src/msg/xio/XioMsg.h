@@ -143,7 +143,7 @@ public:
     {}
 };
 
-WRITE_CLASS_ENCODER(XioMsgHdr);
+//WRITE_CLASS_ENCODER(XioMsgHdr);
 
 extern struct xio_mempool *xio_msgr_noreg_mpool;
 

@@ -108,7 +108,7 @@ struct CephXServerChallenge {
     ::decode(server_challenge, bl);
   }
 };
-WRITE_CLASS_ENCODER(CephXServerChallenge)
+//WRITE_CLASS_ENCODER(CephXServerChallenge)
 
 
 // request/reply headers, for subsequent exchanges.
@@ -123,7 +123,7 @@ struct CephXRequestHeader {
     ::decode(request_type, bl);
   }
 };
-WRITE_CLASS_ENCODER(CephXRequestHeader)
+//WRITE_CLASS_ENCODER(CephXRequestHeader)
 
 struct CephXResponseHeader {
   uint16_t request_type;
@@ -138,7 +138,7 @@ struct CephXResponseHeader {
     ::decode(status, bl);
   }
 };
-WRITE_CLASS_ENCODER(CephXResponseHeader)
+//WRITE_CLASS_ENCODER(CephXResponseHeader)
 
 struct CephXTicketBlob {
   uint64_t secret_id;
@@ -160,7 +160,7 @@ struct CephXTicketBlob {
     ::decode(blob, bl);
   }
 };
-WRITE_CLASS_ENCODER(CephXTicketBlob)
+//WRITE_CLASS_ENCODER(CephXTicketBlob)
 
 // client -> server response to challenge
 struct CephXAuthenticate {
@@ -183,7 +183,7 @@ struct CephXAuthenticate {
     ::decode(old_ticket, bl);
  }
 };
-WRITE_CLASS_ENCODER(CephXAuthenticate)
+//WRITE_CLASS_ENCODER(CephXAuthenticate)
 
 struct CephXChallengeBlob {
   uint64_t server_challenge, client_challenge;
@@ -197,7 +197,7 @@ struct CephXChallengeBlob {
     ::decode(client_challenge, bl);
   }
 };
-WRITE_CLASS_ENCODER(CephXChallengeBlob)
+//WRITE_CLASS_ENCODER(CephXChallengeBlob)
 
 void cephx_calc_client_server_challenge(CephContext *cct, 
 					CryptoKey& secret, uint64_t server_challenge, uint64_t client_challenge,
@@ -245,7 +245,7 @@ struct CephXServiceTicketRequest {
     ::decode(keys, bl);
   }
 };
-WRITE_CLASS_ENCODER(CephXServiceTicketRequest)
+//WRITE_CLASS_ENCODER(CephXServiceTicketRequest)
 
 
 /*
@@ -265,7 +265,7 @@ struct CephXAuthorizeReply {
     ::decode(nonce_plus_one, bl);
   }
 };
-WRITE_CLASS_ENCODER(CephXAuthorizeReply)
+//WRITE_CLASS_ENCODER(CephXAuthorizeReply)
 
 
 struct CephXAuthorizer : public AuthAuthorizer {
@@ -364,7 +364,7 @@ struct CephXServiceTicket {
     ::decode(validity, bl);
   }
 };
-WRITE_CLASS_ENCODER(CephXServiceTicket)
+//WRITE_CLASS_ENCODER(CephXServiceTicket)
 
 /* B */
 struct CephXServiceTicketInfo {
@@ -384,7 +384,7 @@ struct CephXServiceTicketInfo {
     ::decode(session_key, bl);
   }
 };
-WRITE_CLASS_ENCODER(CephXServiceTicketInfo)
+//WRITE_CLASS_ENCODER(CephXServiceTicketInfo)
 
 struct CephXAuthorizeChallenge : public AuthAuthorizerChallenge {
   uint64_t server_challenge;
@@ -399,7 +399,7 @@ struct CephXAuthorizeChallenge : public AuthAuthorizerChallenge {
     ::decode(server_challenge, bl);
   }
 };
-WRITE_CLASS_ENCODER(CephXAuthorizeChallenge)
+//WRITE_CLASS_ENCODER(CephXAuthorizeChallenge)
 
 struct CephXAuthorize {
   uint64_t nonce;
@@ -423,7 +423,7 @@ struct CephXAuthorize {
 
   }
 };
-WRITE_CLASS_ENCODER(CephXAuthorize)
+//WRITE_CLASS_ENCODER(CephXAuthorize)
 
 /*
  * Decode an extract ticket
