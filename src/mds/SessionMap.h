@@ -143,7 +143,12 @@ public:
     }
   }
   void decode(bufferlist::iterator &p);
-  void set_client_metadata(std::map<std::string, std::string> const &meta);
+  template<typename T>
+  void set_client_metadata(T&& meta)
+  {
+    info.client_metadata = std::forward<T>(meta);
+    _update_human_name();
+  }
   std::string get_human_name() const {return human_name;}
 
   // Ephemeral state for tracking progress of capability recalls
@@ -239,6 +244,7 @@ public:
 
   // -- caps --
 private:
+  uint32_t cap_gen;
   version_t cap_push_seq;        // cap push seq #
   map<version_t, list<MDSInternalContextBase*> > waitfor_flush; // flush session messages
 
@@ -248,7 +254,9 @@ public:
   time last_cap_renew = time::min();
   time last_seen = time::min();
 
-public:
+  void inc_cap_gen() { ++cap_gen; }
+  uint32_t get_cap_gen() const { return cap_gen; }
+
   version_t inc_push_seq() { return ++cap_push_seq; }
   version_t get_push_seq() const { return cap_push_seq; }
 
@@ -265,7 +273,10 @@ public:
     }
   }
 
-  void add_cap(Capability *cap) {
+  void touch_cap(Capability *cap) {
+    caps.push_front(&cap->item_session_caps);
+  }
+  void touch_cap_bottom(Capability *cap) {
     caps.push_back(&cap->item_session_caps);
   }
   void touch_lease(ClientLease *r) {
@@ -364,7 +375,7 @@ public:
     recall_release_count(0), auth_caps(g_ceph_context),
     connection(NULL), item_session_list(this),
     requests(0),  // member_offset passed to front() manually
-    cap_push_seq(0),
+    cap_gen(0), cap_push_seq(0),
     lease_seq(0),
     completed_requests_dirty(false),
     num_trim_flushes_warnings(0),

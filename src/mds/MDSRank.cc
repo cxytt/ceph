@@ -347,18 +347,6 @@ private:
     f->close_section();
 
     // we can still continue after recall timeout
-    trim_cache();
-  }
-
-  void trim_cache() {
-    dout(20) << __func__ << dendl;
-
-    if (!mdcache->trim(UINT64_MAX)) {
-      cmd_err(f, "failed to trim cache");
-      complete(-EINVAL);
-      return;
-    }
-
     flush_journal();
   }
 
@@ -387,6 +375,18 @@ private:
     f->dump_int("return_code", r);
     f->dump_string("message", ss.str());
     f->close_section();
+
+    trim_cache();
+  }
+
+  void trim_cache() {
+    dout(20) << __func__ << dendl;
+
+    if (!mdcache->trim(UINT64_MAX)) {
+      cmd_err(f, "failed to trim cache");
+      complete(-EINVAL);
+      return;
+    }
 
     cache_status();
   }
@@ -1455,6 +1455,8 @@ void MDSRank::boot_start(BootStep step, int r)
         << cpp_strerror(r);
       damaged();
       assert(r == 0);  // Unreachable, damaged() calls respawn()
+    } else if (r == -EROFS) {
+      dout(0) << "boot error forcing transition to read-only; MDS will try to continue" << dendl;
     } else {
       // Completely unexpected error, give up and die
       dout(0) << "boot_start encountered an error, failing" << dendl;
@@ -1472,27 +1474,27 @@ void MDSRank::boot_start(BootStep step, int r)
 
         MDSGatherBuilder gather(g_ceph_context,
             new C_MDS_BootStart(this, MDS_BOOT_OPEN_ROOT));
-        dout(2) << "boot_start " << step << ": opening inotable" << dendl;
+        dout(2) << "Booting: " << step << ": opening inotable" << dendl;
         inotable->set_rank(whoami);
         inotable->load(gather.new_sub());
 
-        dout(2) << "boot_start " << step << ": opening sessionmap" << dendl;
+        dout(2) << "Booting: " << step << ": opening sessionmap" << dendl;
         sessionmap.set_rank(whoami);
         sessionmap.load(gather.new_sub());
 
-        dout(2) << "boot_start " << step << ": opening mds log" << dendl;
+        dout(2) << "Booting: " << step << ": opening mds log" << dendl;
         mdlog->open(gather.new_sub());
 
 	if (is_starting()) {
-	  dout(2) << "boot_start " << step << ": opening purge queue" << dendl;
+	  dout(2) << "Booting: " << step << ": opening purge queue" << dendl;
 	  purge_queue.open(new C_IO_Wrapper(this, gather.new_sub()));
 	} else if (!standby_replaying) {
-	  dout(2) << "boot_start " << step << ": opening purge queue (async)" << dendl;
+	  dout(2) << "Booting: " << step << ": opening purge queue (async)" << dendl;
 	  purge_queue.open(NULL);
 	}
 
         if (mdsmap->get_tableserver() == whoami) {
-          dout(2) << "boot_start " << step << ": opening snap table" << dendl;
+          dout(2) << "Booting: " << step << ": opening snap table" << dendl;
           snapserver->set_rank(whoami);
           snapserver->load(gather.new_sub());
         }
@@ -1502,7 +1504,7 @@ void MDSRank::boot_start(BootStep step, int r)
       break;
     case MDS_BOOT_OPEN_ROOT:
       {
-        dout(2) << "boot_start " << step << ": loading/discovering base inodes" << dendl;
+        dout(2) << "Booting: " << step << ": loading/discovering base inodes" << dendl;
 
         MDSGatherBuilder gather(g_ceph_context,
             new C_MDS_BootStart(this, MDS_BOOT_PREPARE_LOG));
@@ -1525,19 +1527,19 @@ void MDSRank::boot_start(BootStep step, int r)
       break;
     case MDS_BOOT_PREPARE_LOG:
       if (is_any_replay()) {
-	dout(2) << "boot_start " << step << ": replaying mds log" << dendl;
+	dout(2) << "Booting: " << step << ": replaying mds log" << dendl;
 	MDSGatherBuilder gather(g_ceph_context,
 	    new C_MDS_BootStart(this, MDS_BOOT_REPLAY_DONE));
 
 	if (!standby_replaying) {
-	  dout(2) << "boot_start " << step << ": waiting for purge queue recovered" << dendl;
+	  dout(2) << "Booting: " << step << ": waiting for purge queue recovered" << dendl;
 	  purge_queue.wait_for_recovery(new C_IO_Wrapper(this, gather.new_sub()));
 	}
 
 	mdlog->replay(gather.new_sub());
 	gather.activate();
       } else {
-        dout(2) << "boot_start " << step << ": positioning at end of old mds log" << dendl;
+        dout(2) << "Booting: " << step << ": positioning at end of old mds log" << dendl;
         mdlog->append();
         starting_done();
       }
@@ -1664,7 +1666,7 @@ void MDSRank::standby_replay_restart()
 {
   if (standby_replaying) {
     /* Go around for another pass of replaying in standby */
-    dout(4) << "standby_replay_restart (as standby)" << dendl;
+    dout(5) << "Restarting replay as standby-replay" << dendl;
     mdlog->get_journaler()->reread_head_and_probe(
       new C_MDS_StandbyReplayRestartFinish(
         this,
@@ -1693,7 +1695,11 @@ void MDSRank::standby_replay_restart()
 
 void MDSRank::replay_done()
 {
-  dout(1) << "replay_done" << (standby_replaying ? " (as standby)" : "") << dendl;
+  if (!standby_replaying) {
+    dout(1) << "Finished replaying journal" << dendl;
+  } else {
+    dout(5) << "Finished replaying journal as standby-replay" << dendl;
+  }
 
   if (is_standby_replay()) {
     // The replay was done in standby state, and we are still in that state
@@ -1715,7 +1721,7 @@ void MDSRank::replay_done()
 
     // Reformat and come back here
     if (mdlog->get_journaler()->get_stream_format() < g_conf->mds_journal_format) {
-        dout(4) << "reformatting journal on standbyreplay->replay transition" << dendl;
+        dout(4) << "reformatting journal on standby-replay->replay transition" << dendl;
         mdlog->reopen(new C_MDS_BootStart(this, MDS_BOOT_REPLAY_DONE));
         return;
     }
@@ -1817,6 +1823,7 @@ void MDSRank::rejoin_start()
 {
   dout(1) << "rejoin_start" << dendl;
   mdcache->rejoin_start(new C_MDS_VoidFn(this, &MDSRank::rejoin_done));
+  finish_contexts(g_ceph_context, waiting_for_rejoin);
 }
 void MDSRank::rejoin_done()
 {
@@ -1978,7 +1985,7 @@ void MDSRank::boot_create()
 
 void MDSRank::stopping_start()
 {
-  dout(2) << "stopping_start" << dendl;
+  dout(2) << "Stopping..." << dendl;
 
   if (mdsmap->get_num_in_mds() == 1 && !sessionmap.empty()) {
     // we're the only mds up!
@@ -1991,7 +1998,7 @@ void MDSRank::stopping_start()
 
 void MDSRank::stopping_done()
 {
-  dout(2) << "stopping_done" << dendl;
+  dout(2) << "Finished stopping..." << dendl;
 
   // tell monitor we shut down cleanly.
   request_state(MDSMap::STATE_STOPPED);
@@ -3066,11 +3073,20 @@ bool MDSRank::evict_client(int64_t session_id,
     return false;
   }
 
+  auto& addr = session->info.inst.addr;
+  {
+    std::stringstream ss;
+    ss << "Evicting " << (blacklist ? "(and blacklisting) " : "")
+       << "client session " << session_id << " (" << addr << ")";
+    dout(1) << ss.str() << dendl;
+    clog->info() << ss.str();
+  }
+
   dout(4) << "Preparing blacklist command... (wait=" << wait << ")" << dendl;
   stringstream ss;
   ss << "{\"prefix\":\"osd blacklist\", \"blacklistop\":\"add\",";
   ss << "\"addr\":\"";
-  ss << session->info.inst.addr;
+  ss << addr;
   ss << "\"}";
   std::string tmp = ss.str();
   std::vector<std::string> cmd = {tmp};

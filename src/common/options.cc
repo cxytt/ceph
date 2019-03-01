@@ -444,7 +444,7 @@ std::vector<Option> get_global_options() {
     .set_description(""),
 
     Option("mon_cluster_log_file_level", Option::TYPE_STR, Option::LEVEL_ADVANCED)
-    .set_default("info")
+    .set_default("debug")
     .set_description(""),
 
     Option("mon_cluster_log_to_graylog", Option::TYPE_STR, Option::LEVEL_ADVANCED)
@@ -5978,7 +5978,7 @@ static std::vector<Option> get_rbd_options() {
     .set_description("default krbd map options"),
 
     Option("rbd_journal_order", Option::TYPE_UINT, Option::LEVEL_ADVANCED)
-    .set_min(12)
+    .set_min_max(12, 26)
     .set_default(24)
     .set_description("default order (object size) for journal data objects"),
 

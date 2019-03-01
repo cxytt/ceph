@@ -110,6 +110,14 @@ class Device(object):
         if not sys_info.devices:
             sys_info.devices = disk.get_devices()
         self.sys_api = sys_info.devices.get(self.abspath, {})
+        if not self.sys_api:
+            # if no device was found check if we are a partition
+            partname = self.abspath.split('/')[-1]
+            for device, info in sys_info.devices.items():
+                part = info['partitions'].get(partname, {})
+                if part:
+                    self.sys_api = part
+                    break
 
         # start with lvm since it can use an absolute or relative path
         lv = lvm.get_lv_from_argument(self.path)
@@ -209,9 +217,6 @@ class Device(object):
         dev_id.replace(' ', '_')
         return dev_id
 
-
-
-
     def _set_lvm_membership(self):
         if self._is_lvm_member is None:
             # this is contentious, if a PV is recognized by LVM but has no
@@ -282,7 +287,14 @@ class Device(object):
 
     @property
     def is_ceph_disk_member(self):
-        return self.ceph_disk.is_member
+        is_member = self.ceph_disk.is_member
+        if self.sys_api.get("partitions"):
+            for part in self.sys_api.get("partitions").keys():
+                part = Device("/dev/%s" % part)
+                if part.is_ceph_disk_member:
+                    is_member = True
+                    break
+        return is_member
 
     @property
     def is_mapper(self):
@@ -356,6 +368,9 @@ class Device(object):
         ]
         rejected = [reason for (k, v, reason) in reasons if
                     self.sys_api.get(k, '') == v]
+        if self.is_ceph_disk_member:
+            rejected.append("Used by ceph-disk")
+
         return len(rejected) == 0, rejected
 
 
