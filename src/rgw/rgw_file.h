@@ -918,9 +918,8 @@ namespace rgw {
     int authorize(RGWRados* store) {
       int ret = rgw_get_user_info_by_access_key(store, key.id, user);
       if (ret == 0) {
-	RGWAccessKey* key0 = user.get_key0();
-	if (!key0 ||
-	    (key0->key != key.key))
+	RGWAccessKey* k = user.get_key(key.id);
+	if (!k || (k->key != key.key))
 	  return -EINVAL;
 	if (user.suspended)
 	  return -ERR_USER_SUSPENDED;
@@ -1441,7 +1440,7 @@ public:
   int operator()(const boost::string_ref name, const rgw_obj_key& marker,
 		uint8_t type) {
 
-    assert(name.length() > 0); // XXX
+    assert(name.length() > 0); // all cases handled in callers
 
     /* hash offset of name in parent (short name) for NFS readdir cookie */
     uint64_t off = XXH64(name.data(), name.length(), fh_key::seed);
@@ -1526,6 +1525,12 @@ public:
 			     << " prefix=" << prefix << " "
 			     << " cpref=" << sref
 			     << dendl;
+
+      if (sref.empty()) {
+	/* null path segment--could be created in S3 but has no NFS
+	 * interpretation */
+	return;
+      }
 
       this->operator()(sref, next_marker, RGW_FS_TYPE_DIRECTORY);
       ++ix;

@@ -352,14 +352,11 @@ int RGWGetObj_ObjStore_S3::get_decrypt_filter(std::unique_ptr<RGWGetDataCB> *fil
   res = rgw_s3_prepare_decrypt(s, attrs, &block_crypt, crypt_http_responses);
   if (res == 0) {
     if (block_crypt != nullptr) {
-      auto f = std::unique_ptr<RGWGetObj_BlockDecrypt>(new RGWGetObj_BlockDecrypt(s->cct, cb, std::move(block_crypt)));
-      //RGWGetObj_BlockDecrypt* f = new RGWGetObj_BlockDecrypt(s->cct, cb, std::move(block_crypt));
-      if (f != nullptr) {
-        if (manifest_bl != nullptr) {
-          res = f->read_manifest(*manifest_bl);
-          if (res == 0) {
-            *filter = std::move(f);
-          }
+      auto f = ceph::make_unique<RGWGetObj_BlockDecrypt>(s->cct, cb, std::move(block_crypt));
+      if (manifest_bl != nullptr) {
+        res = f->read_manifest(*manifest_bl);
+        if (res == 0) {
+          *filter = std::move(f);
         }
       }
     }
@@ -4079,7 +4076,7 @@ std::mutex rgw::auth::s3::LDAPEngine::mtx;
 void rgw::auth::s3::LDAPEngine::init(CephContext* const cct)
 {
   if (! cct->_conf->rgw_s3_auth_use_ldap ||
-      ! cct->_conf->rgw_ldap_uri.empty()) {
+      cct->_conf->rgw_ldap_uri.empty()) {
     return;
   }
 
